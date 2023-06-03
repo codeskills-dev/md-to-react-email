@@ -1,0 +1,14 @@
+{
+  "name": "md-to-react-mail",
+  "version": "1.0.0",
+  "description": "A simple markdown to react-mail converter",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.1.3"
+  }
+}
