@@ -47,6 +47,8 @@ code {
 color: #212529;
 font-size: 87.5%;
 word-wrap: break-word;
+display: inline;
+background: #f8f8f8;
 font-family: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
 }
 

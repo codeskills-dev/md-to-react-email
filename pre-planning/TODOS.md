@@ -1,0 +1,3 @@
+- Extensive testing
+- Create NPM package
+- Export component directly into RM teplate

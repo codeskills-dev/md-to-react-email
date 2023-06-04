@@ -49,6 +49,8 @@ export const code = {
   color: "#212529",
   fontSize: "87.5%",
   wordWrap: "break-word",
+  display: "inline",
+  background: " #f8f8f8",
   fontFamily: `SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace`,
 };
 
