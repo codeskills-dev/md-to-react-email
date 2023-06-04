@@ -58,3 +58,9 @@ padding-bottom: 1px;
 margin-bottom: 20px;
 background: #f8f8f8;
 }
+
+link {
+color: #007bff;
+text-decoration: underline;
+background-color: transparent;
+}

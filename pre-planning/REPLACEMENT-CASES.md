@@ -19,7 +19,7 @@
 ```
 
 - Headers h1-h6
-  <Text style={{...}}></Text>
+  <Heading style={{...}}></Heading>
 - Paragraphs
   <Text style={{...}}></Text>
 - Quotes
