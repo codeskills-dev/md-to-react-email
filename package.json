@@ -2,7 +2,7 @@
   "name": "md-to-react-email",
   "type": "module",
   "version": "1.0.0",
-  "description": "A simple Markdown parser for React-email[react.email]",
+  "description": "A simple Markdown parser for React-email(react.email) written in typescript.",
   "keywords": [
     "markdown",
     "react-email",
@@ -11,6 +11,7 @@
     "md-to-jsx"
   ],
   "repository": {
+    "type": "git",
     "url": "https://github.com/codeskills-dev/md-to-react-email"
   },
   "main": "dist/index.js",
@@ -27,7 +28,7 @@
     "name": "Paul Ehikhuemen",
     "url": "https://github.com/lordelogos"
   },
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@rollup/plugin-typescript": "11.1.1",
     "@types/jest": "29.5.2",
