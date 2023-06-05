@@ -1,43 +1,47 @@
+import { StylesType } from "./types";
+
+const emptyStyle = {};
+
 const baseHeaderStyles = {
   fontWeight: "500",
   paddingTop: 20,
 };
 
-export const headerOne = {
+const h1 = {
   ...baseHeaderStyles,
   fontSize: "2.5rem",
 };
 
-export const headerTwo = {
+const h2 = {
   ...baseHeaderStyles,
   fontSize: "2rem",
 };
-export const headerThree = {
+const h3 = {
   ...baseHeaderStyles,
   fontSize: "1.75rem",
 };
-export const headerFour = {
+const h4 = {
   ...baseHeaderStyles,
   fontSize: "1.5rem",
 };
-export const headerFive = {
+const h5 = {
   ...baseHeaderStyles,
   fontSize: "1.25rem",
 };
-export const headerSix = {
+const h6 = {
   ...baseHeaderStyles,
   fontSize: "1rem",
 };
 
-export const bold = {
+const bold = {
   fontWeight: "bold",
 };
 
-export const italic = {
+const italic = {
   fontStyle: "italic",
 };
 
-export const blockQuote = {
+const blockQuote = {
   background: "#f9f9f9",
   borderLeft: "10px solid #ccc",
   margin: "1.5em 10px",
@@ -45,16 +49,16 @@ export const blockQuote = {
   quotes: '"\u201C""\u201D""\u2018""\u2019"',
 };
 
-export const code = {
+const codeInline = {
   color: "#212529",
   fontSize: "87.5%",
-  wordWrap: "break-word",
   display: "inline",
   background: " #f8f8f8",
   fontFamily: `SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace`,
 };
 
-export const codeBlock = {
+const codeBlock = {
+  ...codeInline,
   paddingTop: 10,
   paddingRight: 10,
   paddingLeft: 10,
@@ -63,8 +67,29 @@ export const codeBlock = {
   background: " #f8f8f8",
 };
 
-export const link = {
+const link = {
   color: "#007bff",
   textDecoration: "underline",
   backgroundColor: "transparent",
+};
+
+export const styles: StylesType = {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  blockQuote,
+  bold,
+  italic,
+  link,
+  codeBlock: { ...codeBlock, wordWrap: "break-word" },
+  codeInline: { ...codeInline, wordWrap: "break-word" },
+  p: emptyStyle,
+  li: emptyStyle,
+  ul: emptyStyle,
+  image: emptyStyle,
+  br: emptyStyle,
+  hr: emptyStyle,
 };
