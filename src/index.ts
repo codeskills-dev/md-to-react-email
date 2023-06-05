@@ -16,4 +16,9 @@ export { Patterns, StylesType } from "./types";
 /**
  * Functions
  */
-export { parseMarkdownToReactMail } from "./utils";
+export { parseMarkdownToReactEmail as parseMarkdownToReactMail } from "./utils";
+
+/**
+ * Components
+ */
+export { ReactEmailMarkdown as ReactMailMarkdown } from "./components";

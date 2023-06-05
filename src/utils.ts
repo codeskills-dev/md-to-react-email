@@ -2,7 +2,7 @@ import { patterns } from "./patterns";
 import { styles } from "./styles";
 import { StylesType } from "./types";
 
-export function parseMarkdownToReactMail(
+export function parseMarkdownToReactEmail(
   markdown: string,
   customStyles?: StylesType
 ): string {
