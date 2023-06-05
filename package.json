@@ -7,8 +7,8 @@
     "markdown",
     "react-email",
     "md",
-    "md-to-react-email",
-    "md-to-jsx"
+    "email",
+    "jsx"
   ],
   "repository": {
     "type": "git",
