@@ -9,7 +9,7 @@ export const patterns = {
   bold: /\*\*(.+?)\*\*/g,
   italic: /\*(.+?)\*/g,
   li: /^\s*[-|\*]\s+(.*)$/gm,
-  ul: /(<li>.*<\/li>)(?![\s\S]*<\/ul>)/gs,
+  ul: /(<li.*<\/li>)(?![\s\S]*<\/ul>)/gs,
   image: /!\[(.*?)\]\((.*?)\)/g,
   link: /\[(.+?)\]\((.*?)\)/g,
   codeBlocks: /```(.+?)```/gs,
