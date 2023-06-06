@@ -1,10 +1,5 @@
 # src files
 /src
-yarn.lock
-.npmignore
-.gitignore
-tsconfig.json
-tsup.config.ts
 
 # test files
 /__tests__
@@ -13,3 +8,8 @@ jest.config.js
 
 # planning files
 /pre-planning
+
+# config files
+tsconfig.json
+tsup.config.ts
+yarn.lock
