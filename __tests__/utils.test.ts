@@ -1,4 +1,4 @@
-import { parseMarkdownToReactMail, styles } from "../src";
+import { parseMarkdownToReactEmail, styles } from "../src";
 
 describe("Markdown to React Mail Parser", () => {
   it("converts header one correctly", () => {
@@ -7,7 +7,7 @@ describe("Markdown to React Mail Parser", () => {
       styles.h1
     )}}>Hello, World!</Heading></Section>`;
 
-    const rendered = parseMarkdownToReactMail(markdown);
+    const rendered = parseMarkdownToReactEmail(markdown);
     expect(rendered).toBe(expected);
   });
 
@@ -17,7 +17,7 @@ describe("Markdown to React Mail Parser", () => {
       styles.h2
     )}}>Heading Two</Heading></Section>`;
 
-    const result = parseMarkdownToReactMail(markdown);
+    const result = parseMarkdownToReactEmail(markdown);
     expect(result).toEqual(expected);
   });
 
@@ -27,7 +27,7 @@ describe("Markdown to React Mail Parser", () => {
       styles.h3
     )}}>Heading Three</Heading></Section>`;
 
-    const result = parseMarkdownToReactMail(markdown);
+    const result = parseMarkdownToReactEmail(markdown);
     expect(result).toEqual(expected);
   });
 
@@ -37,7 +37,7 @@ describe("Markdown to React Mail Parser", () => {
       styles.h4
     )}}>Heading Four</Heading></Section>`;
 
-    const result = parseMarkdownToReactMail(markdown);
+    const result = parseMarkdownToReactEmail(markdown);
     expect(result).toEqual(expected);
   });
 
@@ -47,7 +47,7 @@ describe("Markdown to React Mail Parser", () => {
       styles.h5
     )}}>Heading Five</Heading></Section>`;
 
-    const result = parseMarkdownToReactMail(markdown);
+    const result = parseMarkdownToReactEmail(markdown);
     expect(result).toEqual(expected);
   });
 
@@ -57,7 +57,7 @@ describe("Markdown to React Mail Parser", () => {
       styles.h6
     )}}>Heading Six</Heading></Section>`;
 
-    const result = parseMarkdownToReactMail(markdown);
+    const result = parseMarkdownToReactEmail(markdown);
     expect(result).toEqual(expected);
   });
 
@@ -67,7 +67,7 @@ describe("Markdown to React Mail Parser", () => {
       styles.blockQuote
     )}}>This is a block quote.</Text></Section>`;
 
-    const result = parseMarkdownToReactMail(markdown);
+    const result = parseMarkdownToReactEmail(markdown);
     expect(result).toEqual(expected);
   });
 
@@ -75,7 +75,7 @@ describe("Markdown to React Mail Parser", () => {
     const markdown = "This is a paragraph.";
     const expected = `<Section>This is a paragraph.</Section>`;
 
-    const rendered = parseMarkdownToReactMail(markdown);
+    const rendered = parseMarkdownToReactEmail(markdown);
     expect(rendered).toBe(expected);
   });
 
@@ -85,7 +85,7 @@ describe("Markdown to React Mail Parser", () => {
       styles.bold
     )}}>bold text</Text></Section>`;
 
-    const rendered = parseMarkdownToReactMail(markdown);
+    const rendered = parseMarkdownToReactEmail(markdown);
     expect(rendered).toBe(expected);
   });
 
@@ -95,7 +95,7 @@ describe("Markdown to React Mail Parser", () => {
       styles.italic
     )}}>italic text</Text></Section>`;
 
-    const rendered = parseMarkdownToReactMail(markdown);
+    const rendered = parseMarkdownToReactEmail(markdown);
     expect(rendered).toBe(expected);
   });
 
@@ -107,7 +107,7 @@ describe("Markdown to React Mail Parser", () => {
 <li style={${JSON.stringify(styles.li)}}>Item 2</li>
 <li style={${JSON.stringify(styles.li)}}>Item 3</li></ul></Section>`;
 
-    const rendered = parseMarkdownToReactMail(markdown);
+    const rendered = parseMarkdownToReactEmail(markdown);
     expect(rendered).toBe(expected);
   });
 
@@ -117,7 +117,7 @@ describe("Markdown to React Mail Parser", () => {
       styles.image
     )}} alt="alt text" src="image.jpg" /></Section>`;
 
-    const rendered = parseMarkdownToReactMail(markdown);
+    const rendered = parseMarkdownToReactEmail(markdown);
     expect(rendered).toBe(expected);
   });
 
@@ -127,7 +127,7 @@ describe("Markdown to React Mail Parser", () => {
       styles.link
     )}}>Codeskills</Link></Section>`;
 
-    const rendered = parseMarkdownToReactMail(markdown);
+    const rendered = parseMarkdownToReactEmail(markdown);
     expect(rendered).toBe(expected);
   });
 
@@ -139,7 +139,7 @@ describe("Markdown to React Mail Parser", () => {
 console.log("Hello, World!");
 \`}</Text></pre></Section>`;
 
-    const rendered = parseMarkdownToReactMail(markdown);
+    const rendered = parseMarkdownToReactEmail(markdown);
     expect(rendered).toBe(expected);
   });
 });
