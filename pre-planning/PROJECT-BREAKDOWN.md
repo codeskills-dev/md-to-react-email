@@ -13,7 +13,7 @@
 
 ## Usage:
 
-- Directly as react-email component
+- Directly as `React-email` component
 
 ```
 import {ReactEmailMarkdown} from "md-to-react-email"
