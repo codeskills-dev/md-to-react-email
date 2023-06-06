@@ -23,13 +23,12 @@ export function parseMarkdownToReactEmail(
   customStyles?: StylesType
 ): string {
   const finalStyles = { ...styles, ...customStyles };
-  console.log(finalStyles);
   let reactMailTemplate = "";
 
   // Handle headings (e.g., # Heading)
   reactMailTemplate = markdown.replace(
     patterns.h1,
-    `<Heading as="h1" style="padding:76.5px 35px;color: red;">$1</Heading>`
+    `<Heading as="h1" style={${JSON.stringify(finalStyles.h1)}}>$1</Heading>`
   );
   reactMailTemplate = reactMailTemplate.replace(
     patterns.h2,
