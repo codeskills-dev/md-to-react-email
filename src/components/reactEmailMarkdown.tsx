@@ -1,6 +1,6 @@
 import * as React from "react";
 import { StylesType } from "../types";
-import { parseMarkdownToReactEmail } from "../utils";
+import { parseMarkdownToReactEmailJSX } from "../utils";
 
 interface ReactEmailMarkdownProps {
   markdown: string;
@@ -13,7 +13,7 @@ export const ReactEmailMarkdown: React.FC<ReactEmailMarkdownProps> = ({
   markdownCustomStyles,
   markdownContainerStyles,
 }) => {
-  const parsedMarkdown = parseMarkdownToReactEmail(
+  const parsedMarkdown = parseMarkdownToReactEmailJSX(
     markdown,
     markdownCustomStyles
   );

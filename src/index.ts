@@ -16,7 +16,12 @@ export { Patterns, StylesType } from "./types";
 /**
  * Functions
  */
-export { parseMarkdownToReactEmail } from "./utils";
+export {
+  camelToKebabCase,
+  parseCssInJsToInlineCss,
+  parseMarkdownToReactEmail,
+  parseMarkdownToReactEmailJSX,
+} from "./utils";
 
 /**
  * Components
