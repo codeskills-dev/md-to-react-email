@@ -2,16 +2,16 @@
 
 ## Functions:
 
-- camelToKebabCase: converts strings from camelcase ['thisIsCamelCase'] to kebab case ['this-is-kebab-case']
-- parseCssInJsToInlineCss: converts css styles from css-in-js to inline css e.g fontSize: "18px" => font-size: 18px;
-- parseMarkdownToReactEmail: parses markdown to a valid react-email string that can be copied and pasted directly into your codebase
-- parseMarkdownToReactEmailJSX: parses markdown to valid react-email JSX for the client (i.e the browser)
+- `camelToKebabCase`: converts strings from camelcase ['thisIsCamelCase'] to kebab case ['this-is-kebab-case']
+- `parseCssInJsToInlineCss`: converts css styles from css-in-js to inline css e.g fontSize: "18px" => font-size: 18px;
+- `parseMarkdownToReactEmail`: parses markdown to a valid react-email string that can be copied and pasted directly into your codebase
+- `parseMarkdownToReactEmailJSX`: parses markdown to valid react-email JSX for the client (i.e the browser)
 
 ## Components:
 
-- ReactEmailMarkdown: a react-email component that takes in markdown input and parses it directly in your code base
+- `ReactEmailMarkdown`: a react-email component that takes in markdown input and parses it directly in your code base
 
-## usage:
+## Usage:
 
 - Directly as react-email component
 
