@@ -13,13 +13,13 @@ Install from your command line.
 #### With yarn
 
 ```sh
-yarn add
+yarn add md-to-react-email
 ```
 
 #### With npm
 
 ```sh
-npm install
+npm install md-to-react-email
 ```
 
 ## Features
