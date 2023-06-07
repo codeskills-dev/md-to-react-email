@@ -1,49 +1,106 @@
-<p align="center"><img width=20% src="https://avatars.githubusercontent.com/u/122566584?s=200&v=4"></p>
+# md-to-react-email
 
-#                                     MARKDOWN EMAIL TEMPLATE TO REACT MAIL TEMPLATE
-![GitHub contributors (via allcontributors.org)](https://img.shields.io/github/all-contributors/all-contributors/all-contributors)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+## Description
 
-## Basic Overview
+md-to-react-email is a lightweight utility for converting Markdown into valid [React-email](https://react.email) templates. This tool simplifies the process of creating responsive and customizable email templates by leveraging the power of React and Markdown.
 
-It serves as a valuable tool to seamlessly convert Markdown email template, into React email template, enabling efficient creation and integration of styled emails within React applications. This allows users to leverage the simplicity of Markdown email template while harnessing the power and flexibility of React to generate visually appealing and responsive email content.
+## Installation
 
-<br>
+## Features
 
-## How to Use
+### Functions:
 
-How to use is here
+- `camelToKebabCase`: converts strings from camelcase ['thisIsCamelCase'] to kebab case ['this-is-kebab-case']
+- `parseCssInJsToInlineCss`: converts css styles from css-in-js to inline css e.g fontSize: "18px" => font-size: 18px;
+- `parseMarkdownToReactEmail`: parses markdown to a valid react-email string that can be copied and pasted directly into your codebase
+- `parseMarkdownToReactEmailJSX`: parses markdown to valid react-email JSX for the client (i.e the browser)
 
-<br>
+### Components:
 
-## Cloning the Project
+- `ReactEmailMarkdown`: a react-email component that takes in markdown input and parses it directly in your code base
 
-To clone the project, please follow these steps:
+### Usage:
 
-1. Open your terminal or command prompt.
-2. Navigate to the directory where you want to clone the project.
-3. Type the following command and press Enter:
+- Directly as [`React-email`](https://react.email) component
 
-        git clone https://github.com/codeskills-dev/md-to-react-mail.git
+```
+import {ReactEmailMarkdown} from "md-to-react-email"
 
-4. Once the project is cloned, navigate into the project directory using the following command:
+export default function EmailTemplate() {
+  return (
+    <Email>
+        <Head />
+        <Section>
+            <ReactEmailMarkdown markdown={`# Hello, World!`} />
+        </Section>
+    </Email>
+    )
+  }
+```
 
-        cd your-repo
+- Directly into react-email template
 
-<br>
+```
+import {parseMarkdownToReactEmailJSX} from "md-to-react-email"
 
-## How to Contribute
+const markdown = `# Hello World`
+const parsedReactMail = parseMarkdownToReactEmail(markdown)
 
-Before doing anything, please read the [CONTRIBUTING.md](./CONTRIBUTING.md) guidelines.
+console.log(parsedReactMail) // `<Heading as="h1" style="...valid inline CSS..."></Heading>`
 
-<br>
+```
+
+- For code generation (copy and paste)
+
+```
+import {parseMarkdownToReactEmail} from "md-to-react-email"
+
+const markdown = `# Hello World`
+const parsedReactMail = parseMarkdownToReactEmail(markdown)
+
+console.log(parsedReactMail) // `<Heading as="h1" style={...styles go here...}></Heading>`
+
+```
+
+## Components
+
+md-to-react-email contains pre-defined react-email and html components for the email template structure and styling. You can modify these components to customize the look and feel of your email template.
+
+The following components are available for customization:
+
+- Headers (h1 - h6)
+- BlockQuotes
+- Text: paragraphs, bold and italic text
+- Links
+- Code: Code blocks and inline code
+- Lists: ul, li
+- Image
+- Line-breaks (br)
+- Horizontal-rule (hr)
+
+## Supported Email Clients
+
+The provided React-email components and default styling are designed to work well across various email clients and providers. However, due to the inconsistent support for modern web standards in different email clients, it's recommended to test your email templates in multiple clients to ensure compatibility.
+
+The following email clients are known to be supported:
+
+- Gmail
+- Apple Mail
+- Outlook (desktop and web)
+- Yahoo Mail
+- HEY Mail
+- Super Human
+
+## Contributing
+
+Contributions to md-to-react-email are welcome! If you find a bug, have suggestions for improvements, or want to add new features, feel free to open an issue or submit a pull request. Please make sure to follow the existing coding style and conventions.
+
+When submitting a pull request, provide a clear description of the changes made and ensure that all tests pass. Adding appropriate tests for new features or bug fixes is highly appreciated.
 
 ## Bugs and Feature Requests
 
 For bugs and feature requests, [please create an issue](https://github.com/codeskills-dev/md-to-react-mail/issues/new/choose).
 
-<br>
-
 ## License
 
-[MIT] Licensed. Copyright (c) Codeskills-Dev 2023.
+md-to-react-email is licensed under the MIT License.
