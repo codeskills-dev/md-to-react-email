@@ -2,7 +2,9 @@
 
 ## Description
 
-md-to-react-email is a lightweight utility for converting Markdown into valid [React-email](https://react.email) templates. This tool simplifies the process of creating responsive and customizable email templates by leveraging the power of React and Markdown.
+md-to-react-email is a lightweight utility for converting [Markdown](https://www.markdownguide.org/) into valid [React-email](https://react.email) templates. This tool simplifies the process of creating responsive and customizable email templates by leveraging the power of React and Markdown.
+
+_Note: There is only support for the [Official Markdown flavour](https://www.markdownguide.org/basic-syntax/)_
 
 ## Installation
 
