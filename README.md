@@ -21,48 +21,48 @@ _Note: There is only support for the [Official Markdown flavour](https://www.mar
 
 - `ReactEmailMarkdown`: a react-email component that takes in markdown input and parses it directly in your code base
 
-### Usage:
+## Usage:
 
 - Directly as [`React-email`](https://react.email) component
 
-```
-import {ReactEmailMarkdown} from "md-to-react-email"
+        ```
+        import {ReactEmailMarkdown} from "md-to-react-email"
 
-export default function EmailTemplate() {
-  return (
-    <Email>
-        <Head />
-        <Section>
-            <ReactEmailMarkdown markdown={`# Hello, World!`} />
-        </Section>
-    </Email>
-    )
-  }
-```
+        export default function EmailTemplate() {
+        return (
+        <Email>
+                <Head />
+                <Section>
+                <ReactEmailMarkdown markdown={`# Hello, World!`} />
+                </Section>
+        </Email>
+        )
+        }
+        ```
 
 - Directly into react-email template
 
-```
-import {parseMarkdownToReactEmailJSX} from "md-to-react-email"
+        ```
+        import {parseMarkdownToReactEmailJSX} from "md-to-react-email"
 
-const markdown = `# Hello World`
-const parsedReactMail = parseMarkdownToReactEmail(markdown)
+        const markdown = `# Hello World`
+        const parsedReactMail = parseMarkdownToReactEmail(markdown)
 
-console.log(parsedReactMail) // `<Heading as="h1" style="...valid inline CSS..."></Heading>`
+        console.log(parsedReactMail) // `<Heading as="h1" style="...valid inline CSS..."></Heading>`
 
-```
+        ```
 
 - For code generation (copy and paste)
 
-```
-import {parseMarkdownToReactEmail} from "md-to-react-email"
+        ```
+        import {parseMarkdownToReactEmail} from "md-to-react-email"
 
-const markdown = `# Hello World`
-const parsedReactMail = parseMarkdownToReactEmail(markdown)
+        const markdown = `# Hello World`
+        const parsedReactMail = parseMarkdownToReactEmail(markdown)
 
-console.log(parsedReactMail) // `<Heading as="h1" style={...styles go here...}></Heading>`
+        console.log(parsedReactMail) // `<Heading as="h1" style={...styles go here...}></Heading>`
 
-```
+        ```
 
 ## Components
 
