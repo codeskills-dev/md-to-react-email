@@ -93,6 +93,10 @@ The following email clients are known to be supported:
 - HEY Mail
 - Super Human
 
+| <img src="https://react.email/static/icons/gmail.svg" width="48px" height="48px" alt="Gmail logo"> | <img src="https://react.email/static/icons/apple-mail.svg" width="48px" height="48px" alt="Apple Mail"> | <img src="https://react.email/static/icons/outlook.svg" width="48px" height="48px" alt="Outlook logo"> | <img src="https://react.email/static/icons/yahoo-mail.svg" width="48px" height="48px" alt="Yahoo! Mail logo"> | <img src="https://react.email/static/icons/hey.svg" width="48px" height="48px" alt="HEY logo"> | <img src="https://react.email/static/icons/superhuman.svg" width="48px" height="48px" alt="Superhuman logo"> |
+| -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| Gmail ✔                                                                                            | Apple Mail ✔                                                                                            | Outlook ✔                                                                                              | Yahoo! Mail ✔                                                                                                 | HEY ✔                                                                                          | Superhuman ✔                                                                                                 |
+
 ## Contributing
 
 Contributions to md-to-react-email are welcome! If you find a bug, have suggestions for improvements, or want to add new features, feel free to open an issue or submit a pull request. Please make sure to follow the existing coding style and conventions.
@@ -103,6 +107,10 @@ When submitting a pull request, provide a clear description of the changes made 
 
 For bugs and feature requests, [please create an issue](https://github.com/codeskills-dev/md-to-react-mail/issues/new/choose).
 
+## Author
+
+- Paul Ehikhuemen ([@pauloe_me](https://twitter.com/pauloe_me))
+
 ## License
 
-md-to-react-email is licensed under the MIT License.
+`md-to-react-email` is licensed under the MIT License.
