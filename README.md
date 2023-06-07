@@ -8,6 +8,20 @@ _Note: There is only support for the [Official Markdown flavour](https://www.mar
 
 ## Installation
 
+Install from your command line.
+
+#### With yarn
+
+```sh
+yarn add
+```
+
+#### With npm
+
+```sh
+npm install
+```
+
 ## Features
 
 ### Functions:
@@ -30,12 +44,12 @@ _Note: There is only support for the [Official Markdown flavour](https://www.mar
 
         export default function EmailTemplate() {
         return (
-        <Email>
-                <Head />
-                <Section>
-                <ReactEmailMarkdown markdown={`# Hello, World!`} />
-                </Section>
-        </Email>
+                <Email>
+                        <Head />
+                        <Section>
+                        <ReactEmailMarkdown markdown={`# Hello, World!`} />
+                        </Section>
+                </Email>
         )
         }
         ```
