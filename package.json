@@ -1,6 +1,6 @@
 {
   "name": "md-to-react-email",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A simple Markdown parser for React-email written in typescript.",
   "keywords": [
     "markdown",
@@ -13,8 +13,8 @@
     "type": "git",
     "url": "https://github.com/codeskills-dev/md-to-react-email.git"
   },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
