@@ -16,3 +16,6 @@ tsconfig.json
 tsup.config.ts
 jest.config.js
 yarn.lock
+
+# ci
+/.github

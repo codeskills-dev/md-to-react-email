@@ -51,8 +51,70 @@ export function parseMarkdownToReactEmail(
     `<Heading as="h6" style={${JSON.stringify(finalStyles.h6)}}>$1</Heading>`
   );
 
+  // Handle Tables from GFM
+  reactMailTemplate = reactMailTemplate.replace(
+    patterns.table,
+    (match: string) => {
+      const rows = match.trim().split("\n");
+      const headers = rows[0]
+        .split("|")
+        .slice(1, -1)
+        .map((cell) => cell.trim());
+      const alignments = rows[1]
+        .split("|")
+        .slice(1, -1)
+        .map((cell) => {
+          const align = cell.trim().toLowerCase();
+          return align === ":--"
+            ? "left"
+            : align === "--:"
+            ? "right"
+            : "center";
+        });
+      const body = rows
+        .slice(2)
+        .map((row) => {
+          const cells = row
+            .split("|")
+            .slice(1, -1)
+            .map((cell) => cell.trim());
+          return `<tr style={${JSON.stringify(finalStyles.tr)}}>${cells
+            .map(
+              (cell, index) =>
+                `<td style={${JSON.stringify(finalStyles.td)}} align="${
+                  alignments[index]
+                }">${cell}</td>`
+            )
+            .join("")}</tr>`;
+        })
+        .join("");
+
+      const table = `<table style={${JSON.stringify(
+        finalStyles.table
+      )}}><thead style={${JSON.stringify(
+        finalStyles.thead
+      )}}><tr style={${JSON.stringify(finalStyles.tr)}}>${headers
+        .map(
+          (header, index) =>
+            `<th style={${JSON.stringify(finalStyles.th)}} align="${
+              alignments[index]
+            }">${header}</th>`
+        )
+        .join("")}</tr></thead><tbody style={${JSON.stringify(
+        finalStyles.tbody
+      )}}>${body}</tbody></table>`;
+      return table;
+    }
+  );
+
   // Handle paragraphs
   reactMailTemplate = reactMailTemplate.replace(patterns.p, "$&");
+
+  // Handle strikethrough
+  reactMailTemplate = reactMailTemplate.replace(
+    patterns.strikethrough,
+    `<del style={${JSON.stringify(finalStyles.strikethrough)}}>$1</del>`
+  );
 
   // Handle bold text (e.g., **bold**)
   reactMailTemplate = reactMailTemplate.replace(
@@ -171,8 +233,72 @@ export function parseMarkdownToReactEmailJSX(
     )}">$1</Heading>`
   );
 
+  // Handle Tables from GFM
+  reactMailTemplate = reactMailTemplate.replace(
+    patterns.table,
+    (match: string) => {
+      const rows = match.trim().split("\n");
+      const headers = rows[0]
+        .split("|")
+        .slice(1, -1)
+        .map((cell) => cell.trim());
+      const alignments = rows[1]
+        .split("|")
+        .slice(1, -1)
+        .map((cell) => {
+          const align = cell.trim().toLowerCase();
+          return align === ":--"
+            ? "left"
+            : align === "--:"
+            ? "right"
+            : "center";
+        });
+      const body = rows
+        .slice(2)
+        .map((row) => {
+          const cells = row
+            .split("|")
+            .slice(1, -1)
+            .map((cell) => cell.trim());
+          return `<tr style="${parseCssInJsToInlineCss(finalStyles.tr)}">${cells
+            .map(
+              (cell, index) =>
+                `<td style="${parseCssInJsToInlineCss(
+                  finalStyles.td
+                )}" align="${alignments[index]}">${cell}</td>`
+            )
+            .join("")}</tr>`;
+        })
+        .join("");
+
+      const table = `<table style="${parseCssInJsToInlineCss(
+        finalStyles.table
+      )}"><thead style="${parseCssInJsToInlineCss(
+        finalStyles.thead
+      )}"><tr style="${parseCssInJsToInlineCss(finalStyles.tr)}">${headers
+        .map(
+          (header, index) =>
+            `<th style="${parseCssInJsToInlineCss(finalStyles.th)}" align="${
+              alignments[index]
+            }">${header}</th>`
+        )
+        .join("")}</tr></thead><tbody style="${parseCssInJsToInlineCss(
+        finalStyles.tbody
+      )}">${body}</tbody></table>`;
+      return table;
+    }
+  );
+
   // Handle paragraphs
   reactMailTemplate = reactMailTemplate.replace(patterns.p, "$&");
+
+  // Handle strikethrough
+  reactMailTemplate = reactMailTemplate.replace(
+    patterns.strikethrough,
+    `<del style="${parseCssInJsToInlineCss(
+      finalStyles.strikethrough
+    )}">$1</del>`
+  );
 
   // Handle bold text (e.g., **bold**)
   reactMailTemplate = reactMailTemplate.replace(

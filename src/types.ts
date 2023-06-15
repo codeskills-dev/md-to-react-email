@@ -19,6 +19,13 @@ export type StylesType = {
   image?: CSSProperties;
   br?: CSSProperties;
   hr?: CSSProperties;
+  table?: CSSProperties;
+  thead?: CSSProperties;
+  tbody?: CSSProperties;
+  tr?: CSSProperties;
+  th?: CSSProperties;
+  td?: CSSProperties;
+  strikethrough?: CSSProperties;
 };
 
 export type Patterns = {
@@ -40,4 +47,6 @@ export type Patterns = {
   image?: RegExp;
   br?: RegExp;
   hr?: RegExp;
+  table?: RegExp;
+  strikethrough?: RegExp;
 };

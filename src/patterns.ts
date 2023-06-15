@@ -16,4 +16,7 @@ export const patterns = {
   codeInline: /`(.+?)`/g,
   br: /  \n/g,
   hr: /^-{3,}$/gm,
+  table:
+    /((?:^|\n)(?:\|[^\n]*?)+\|\n)((?:^|\n)(?:\|(?:[\s\S]*?[^\\])?\|[^\n]*)+\|\n)+/gm,
+  strikethrough: /~~(.+?)~~/g,
 };

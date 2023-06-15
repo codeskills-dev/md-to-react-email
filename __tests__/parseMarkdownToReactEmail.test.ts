@@ -142,4 +142,30 @@ console.log("Hello, World!");
     const rendered = parseMarkdownToReactEmail(markdown);
     expect(rendered).toBe(expected);
   });
+
+  it("converts tables correctly", () => {
+    const markdown = `
+| Header 1 | Header 2 |
+| -------- | -------- |
+| Cell 1   | Cell 2   |
+| Cell 3   | Cell 4   |
+`;
+    const expected =
+      '<Section><table style={{}}><thead style={{}}><tr style={{"color":"red"}}><th style={{}} align="center">Header 1</th><th style={{}} align="center">Header 2</th></tr></thead><tbody style={{}}><tr style={{"color":"red"}}><td style={{}} align="center">Cell 1</td><td style={{}} align="center">Cell 2</td></tr><tr style={{"color":"red"}}><td style={{}} align="center">Cell 3</td><td style={{}} align="center">Cell 4</td></tr></tbody></table></Section>';
+
+    const rendered = parseMarkdownToReactEmail(markdown, {
+      tr: { color: "red" },
+    });
+    expect(rendered).toBe(expected);
+  });
+
+  it("converts strikethrough blocks correctly", () => {
+    const markdown = "~~This is a paragraph.~~";
+    const expected = `<Section><del style={${JSON.stringify(
+      styles.strikethrough
+    )}}>This is a paragraph.</del></Section>`;
+
+    const rendered = parseMarkdownToReactEmail(markdown);
+    expect(rendered).toBe(expected);
+  });
 });

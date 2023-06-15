@@ -92,4 +92,11 @@ export const styles: StylesType = {
   image: emptyStyle,
   br: emptyStyle,
   hr: emptyStyle,
+  table: emptyStyle,
+  thead: emptyStyle,
+  tbody: emptyStyle,
+  th: emptyStyle,
+  td: emptyStyle,
+  tr: emptyStyle,
+  strikethrough: emptyStyle,
 };
