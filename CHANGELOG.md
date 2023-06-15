@@ -7,13 +7,13 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes for commonJS
 
-**Note:** Updated Package.json
+- Updated Package.json
 
 ## [1.0.1](https://github.com/codeskills-dev/md-to-react-email/compare/v1.0.0...v1.0.1) (2023-06-7)
 
 https://github.com/codeskills-dev/md-to-react-email/releases/tag/v1.0.0
 
-**Note:** Updated README.md
+- Updated README.md
 
 ## [1.0.0]() (2023-06-7)
 
