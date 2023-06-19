@@ -198,39 +198,39 @@ export function parseMarkdownToReactEmailJSX(
   // Handle headings (e.g., # Heading)
   reactMailTemplate = markdown.replace(
     patterns.h1,
-    `<Heading as="h1" style="${parseCssInJsToInlineCss(
+    `<h1 data-id="react-email-heading" style="${parseCssInJsToInlineCss(
       finalStyles.h1
-    )}">$1</Heading>`
+    )}">$1</h1>`
   );
   reactMailTemplate = reactMailTemplate.replace(
     patterns.h2,
-    `<Heading as="h2" style="${parseCssInJsToInlineCss(
+    `<h2 data-id="react-email-heading" style="${parseCssInJsToInlineCss(
       finalStyles.h2
-    )}">$1</Heading>`
+    )}">$1</h2>`
   );
   reactMailTemplate = reactMailTemplate.replace(
     patterns.h3,
-    `<Heading as="h3" style="${parseCssInJsToInlineCss(
+    `<h3 data-id="react-email-heading" style="${parseCssInJsToInlineCss(
       finalStyles.h3
-    )}">$1</Heading>`
+    )}">$1</h3>`
   );
   reactMailTemplate = reactMailTemplate.replace(
     patterns.h4,
-    `<Heading as="h4" style="${parseCssInJsToInlineCss(
+    `<h4 data-id="react-email-heading" style="${parseCssInJsToInlineCss(
       finalStyles.h4
-    )}">$1</Heading>`
+    )}">$1</h4>`
   );
   reactMailTemplate = reactMailTemplate.replace(
     patterns.h5,
-    `<Heading as="h5" style="${parseCssInJsToInlineCss(
+    `<h5 data-id="react-email-heading" style="${parseCssInJsToInlineCss(
       finalStyles.h5
-    )}">$1</Heading>`
+    )}">$1</h5>`
   );
   reactMailTemplate = reactMailTemplate.replace(
     patterns.h6,
-    `<Heading as="h6" style="${parseCssInJsToInlineCss(
+    `<h6 data-id="react-email-heading" style="${parseCssInJsToInlineCss(
       finalStyles.h6
-    )}">$1</Heading>`
+    )}">$1</h6>`
   );
 
   // Handle Tables from GFM
@@ -303,13 +303,17 @@ export function parseMarkdownToReactEmailJSX(
   // Handle bold text (e.g., **bold**)
   reactMailTemplate = reactMailTemplate.replace(
     patterns.bold,
-    `<Text style="${parseCssInJsToInlineCss(finalStyles.bold)}">$1</Text>`
+    `<p data-id="react-email-text" style="${parseCssInJsToInlineCss(
+      finalStyles.bold
+    )}">$1</p>`
   );
 
   // Handle italic text (e.g., *italic*)
   reactMailTemplate = reactMailTemplate.replace(
     patterns.italic,
-    `<Text style="${parseCssInJsToInlineCss(finalStyles.italic)}">$1</Text>`
+    `<p data-id="react-email-text" style="${parseCssInJsToInlineCss(
+      finalStyles.italic
+    )}">$1</p>`
   );
 
   // Handle lists (unordered and ordered)
@@ -325,7 +329,7 @@ export function parseMarkdownToReactEmailJSX(
   // Handle images (e.g., ![alt text](url))
   reactMailTemplate = reactMailTemplate.replace(
     patterns.image,
-    `<Img style="${parseCssInJsToInlineCss(
+    `<img style="${parseCssInJsToInlineCss(
       finalStyles.image
     )}" alt="$1" src="$2" />`
   );
@@ -333,9 +337,9 @@ export function parseMarkdownToReactEmailJSX(
   // Handle links (e.g., [link text](url))
   reactMailTemplate = reactMailTemplate.replace(
     patterns.link,
-    `<Link href="$2" style="${parseCssInJsToInlineCss(
+    `<a data-id="react-email-link" target="_blank" href="$2" style="${parseCssInJsToInlineCss(
       finalStyles.link
-    )}">$1</Link>`
+    )}">$1</a>`
   );
 
   // Handle code blocks (e.g., ```code```)
@@ -343,19 +347,23 @@ export function parseMarkdownToReactEmailJSX(
     patterns.codeBlocks,
     `<pre style="${parseCssInJsToInlineCss(
       finalStyles.codeBlock
-    )}"><Text>${`{\`$1\`}`}</Text></pre>`
+    )}"><p data-id="react-email-text">${`{\`$1\`}`}</p></pre>`
   );
 
   // Handle inline code (e.g., `code`)
   reactMailTemplate = reactMailTemplate.replace(
     patterns.codeInline,
-    `<Text style="${parseCssInJsToInlineCss(finalStyles.codeInline)}">$1</Text>`
+    `<p data-id="react-email-text" style="${parseCssInJsToInlineCss(
+      finalStyles.codeInline
+    )}">$1</p>`
   );
 
   // Handle block quotes
   reactMailTemplate = reactMailTemplate.replace(
     /^>\s+(.+)$/gm,
-    `<Text style="${parseCssInJsToInlineCss(finalStyles.blockQuote)}">$1</Text>`
+    `<p data-id="react-email-text" style="${parseCssInJsToInlineCss(
+      finalStyles.blockQuote
+    )}">$1</p>`
   );
 
   // Handle line breaks (e.g., <br />)
@@ -367,11 +375,10 @@ export function parseMarkdownToReactEmailJSX(
   // Handle horizontal rules (e.g., ---)
   reactMailTemplate = reactMailTemplate.replace(
     patterns.hr,
-    `<Hr style="${parseCssInJsToInlineCss(finalStyles.hr)}" />`
+    `<hr data-id="react-email-hr" style="${parseCssInJsToInlineCss(
+      finalStyles.hr
+    )}" />`
   );
-
-  // Wrap content in a section tag
-  reactMailTemplate = `<Section>${reactMailTemplate}</Section>`;
 
   return reactMailTemplate;
 }

@@ -7,9 +7,9 @@ import {
 describe("Markdown to React Mail JSX Parser", () => {
   it("converts header one correctly", () => {
     const markdown = "# Hello, World!";
-    const expected = `<Section><Heading as="h1" style="${parseCssInJsToInlineCss(
+    const expected = `<h1 data-id="react-email-heading" style="${parseCssInJsToInlineCss(
       styles.h1
-    )}">Hello, World!</Heading></Section>`;
+    )}">Hello, World!</h1>`;
 
     const rendered = parseMarkdownToReactEmailJSX(markdown);
     expect(rendered).toBe(expected);
@@ -17,9 +17,9 @@ describe("Markdown to React Mail JSX Parser", () => {
 
   it("converts images correctly", () => {
     const markdown = "![alt text](image.jpg)";
-    const expected = `<Section><Img style="${parseCssInJsToInlineCss(
+    const expected = `<img style="${parseCssInJsToInlineCss(
       styles.image
-    )}" alt="alt text" src="image.jpg" /></Section>`;
+    )}" alt="alt text" src="image.jpg" />`;
 
     const rendered = parseMarkdownToReactEmailJSX(markdown);
     expect(rendered).toBe(expected);
@@ -27,9 +27,9 @@ describe("Markdown to React Mail JSX Parser", () => {
 
   it("converts links correctly", () => {
     const markdown = "[Codeskills](https://codeskills.dev)";
-    const expected = `<Section><Link href="https://codeskills.dev" style="${parseCssInJsToInlineCss(
+    const expected = `<a data-id=\"react-email-link\" target=\"_blank\" href="https://codeskills.dev" style="${parseCssInJsToInlineCss(
       styles.link
-    )}">Codeskills</Link></Section>`;
+    )}">Codeskills</a>`;
 
     const rendered = parseMarkdownToReactEmailJSX(markdown);
     expect(rendered).toBe(expected);
@@ -37,11 +37,11 @@ describe("Markdown to React Mail JSX Parser", () => {
 
   it("converts code blocks correctly", () => {
     const markdown = '```javascript\nconsole.log("Hello, World!");\n```';
-    const expected = `<Section><pre style="${parseCssInJsToInlineCss(
+    const expected = `<pre style="${parseCssInJsToInlineCss(
       styles.codeBlock
-    )}"><Text>{\`javascript
+    )}"><p data-id="react-email-text">{\`javascript
 console.log("Hello, World!");
-\`}</Text></pre></Section>`;
+\`}</p></pre>`;
 
     const rendered = parseMarkdownToReactEmailJSX(markdown);
     expect(rendered).toBe(expected);
@@ -55,7 +55,7 @@ console.log("Hello, World!");
 | Cell 3   | Cell 4   |
 `;
     const expected =
-      '<Section><table style=""><thead style=""><tr style="color:red"><th style="" align="center">Header 1</th><th style="" align="center">Header 2</th></tr></thead><tbody style=""><tr style="color:red"><td style="" align="center">Cell 1</td><td style="" align="center">Cell 2</td></tr><tr style="color:red"><td style="" align="center">Cell 3</td><td style="" align="center">Cell 4</td></tr></tbody></table></Section>';
+      '<table style=""><thead style=""><tr style="color:red"><th style="" align="center">Header 1</th><th style="" align="center">Header 2</th></tr></thead><tbody style=""><tr style="color:red"><td style="" align="center">Cell 1</td><td style="" align="center">Cell 2</td></tr><tr style="color:red"><td style="" align="center">Cell 3</td><td style="" align="center">Cell 4</td></tr></tbody></table>';
 
     const rendered = parseMarkdownToReactEmailJSX(markdown, {
       tr: { color: "red" },
@@ -65,9 +65,9 @@ console.log("Hello, World!");
 
   it("converts strikethrough blocks correctly", () => {
     const markdown = "~~This is a paragraph.~~";
-    const expected = `<Section><del style="${parseCssInJsToInlineCss(
+    const expected = `<del style="${parseCssInJsToInlineCss(
       styles.strikethrough
-    )}">This is a paragraph.</del></Section>`;
+    )}">This is a paragraph.</del>`;
 
     const rendered = parseMarkdownToReactEmailJSX(markdown);
     expect(rendered).toBe(expected);
