@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [2.0.0](https://github.com/codeskills-dev/md-to-react-email/compare/v2.0.0...v1.2.0) (2023-06-20)
+### [2.0.1](https://github.com/codeskills-dev/md-to-react-email/compare/v2.0.1...v1.2.0) (2023-06-20)
 
 ### Features
 
