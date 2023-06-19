@@ -1,6 +1,6 @@
 {
   "name": "md-to-react-email",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A simple Markdown parser for React-email written in typescript.",
   "keywords": [
     "markdown",
@@ -22,7 +22,8 @@
   "scripts": {
     "build": "tsup",
     "test": "jest --coverage",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "publish": "tsup && npm publish"
   },
   "author": {
     "name": "Paul Ehikhuemen",
