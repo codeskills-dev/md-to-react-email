@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.0.2](https://github.com/codeskills-dev/md-to-react-email/compare/v2.0.1...v2.0.2) (2023-06-20)
+
+### Features
+
+- Removed `data-id` attributes from markup
+
 ### [2.0.1](https://github.com/codeskills-dev/md-to-react-email/compare/v1.2.0...v2.0.1) (2023-06-20)
 
 ### Features

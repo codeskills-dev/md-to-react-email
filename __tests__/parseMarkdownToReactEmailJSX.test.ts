@@ -7,7 +7,7 @@ import {
 describe("Markdown to React Mail JSX Parser", () => {
   it("converts header one correctly", () => {
     const markdown = "# Hello, World!";
-    const expected = `<h1 data-id="react-email-heading" style="${parseCssInJsToInlineCss(
+    const expected = `<h1 style="${parseCssInJsToInlineCss(
       styles.h1
     )}">Hello, World!</h1>`;
 
@@ -27,7 +27,7 @@ describe("Markdown to React Mail JSX Parser", () => {
 
   it("converts links correctly", () => {
     const markdown = "[Codeskills](https://codeskills.dev)";
-    const expected = `<a data-id=\"react-email-link\" target=\"_blank\" href="https://codeskills.dev" style="${parseCssInJsToInlineCss(
+    const expected = `<a target=\"_blank\" href="https://codeskills.dev" style="${parseCssInJsToInlineCss(
       styles.link
     )}">Codeskills</a>`;
 
@@ -39,7 +39,7 @@ describe("Markdown to React Mail JSX Parser", () => {
     const markdown = '```javascript\nconsole.log("Hello, World!");\n```';
     const expected = `<pre style="${parseCssInJsToInlineCss(
       styles.codeBlock
-    )}"><p data-id="react-email-text">{\`javascript
+    )}"><p>{\`javascript
 console.log("Hello, World!");
 \`}</p></pre>`;
 
