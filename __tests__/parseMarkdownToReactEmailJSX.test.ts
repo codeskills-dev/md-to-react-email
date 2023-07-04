@@ -34,7 +34,7 @@ describe("Markdown to React Mail JSX Parser", () => {
     const markdown = "![alt text](image.jpg)";
     const expected = `<img style="${parseCssInJsToInlineCss(
       styles.image
-    )}" alt="alt text" src="image.jpg" />`;
+    )}" alt="alt text" src="image.jpg">`;
 
     const rendered = parseMarkdownToReactEmailJSX({ markdown });
     expect(rendered).toBe(expected);
@@ -42,7 +42,7 @@ describe("Markdown to React Mail JSX Parser", () => {
 
   it("converts links correctly", () => {
     const markdown = "[Codeskills](https://codeskills.dev)";
-    const expected = `<a target=\"_blank\" href="https://codeskills.dev" style="${parseCssInJsToInlineCss(
+    const expected = `<a href="https://codeskills.dev" style="${parseCssInJsToInlineCss(
       styles.link
     )}">Codeskills</a>`;
 

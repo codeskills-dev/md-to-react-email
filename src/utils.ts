@@ -1,3 +1,4 @@
+import { sanitize } from "isomorphic-dompurify";
 import { patterns } from "./patterns";
 import { styles } from "./styles";
 import { StylesType } from "./types";
@@ -205,15 +206,15 @@ export function parseMarkdownToReactEmailJSX({
   // Handle headings (e.g., # Heading)
   reactMailTemplate = markdown.replace(
     patterns.h1,
-    `<h1${
+    `<h1 style="${parseCssInJsToInlineCss(finalStyles.h1)}"${
       withDataAttr ? ' data-id="react-email-heading"' : ""
-    } style="${parseCssInJsToInlineCss(finalStyles.h1)}">$1</h1>`
+    }>$1</h1>`
   );
   reactMailTemplate = reactMailTemplate.replace(
     patterns.h2,
-    `<h2${
+    `<h2 style="${parseCssInJsToInlineCss(finalStyles.h2)}"${
       withDataAttr ? ' data-id="react-email-heading"' : ""
-    } style="${parseCssInJsToInlineCss(finalStyles.h2)}">$1</h2>`
+    }>$1</h2>`
   );
   reactMailTemplate = reactMailTemplate.replace(
     patterns.h3,
@@ -270,9 +271,11 @@ export function parseMarkdownToReactEmailJSX({
           return `<tr style="${parseCssInJsToInlineCss(finalStyles.tr)}">${cells
             .map(
               (cell, index) =>
-                `<td style="${parseCssInJsToInlineCss(
+                `<td  align="${
+                  alignments[index]
+                }" style="${parseCssInJsToInlineCss(
                   finalStyles.td
-                )}" align="${alignments[index]}">${cell}</td>`
+                )}">${cell}</td>`
             )
             .join("")}</tr>`;
         })
@@ -285,9 +288,9 @@ export function parseMarkdownToReactEmailJSX({
       )}"><tr style="${parseCssInJsToInlineCss(finalStyles.tr)}">${headers
         .map(
           (header, index) =>
-            `<th style="${parseCssInJsToInlineCss(finalStyles.th)}" align="${
-              alignments[index]
-            }">${header}</th>`
+            `<th align="${alignments[index]}" style="${parseCssInJsToInlineCss(
+              finalStyles.th
+            )}">${header}</th>`
         )
         .join("")}</tr></thead><tbody style="${parseCssInJsToInlineCss(
         finalStyles.tbody
@@ -336,9 +339,9 @@ export function parseMarkdownToReactEmailJSX({
   // Handle images (e.g., ![alt text](url))
   reactMailTemplate = reactMailTemplate.replace(
     patterns.image,
-    `<img style="${parseCssInJsToInlineCss(
+    `<img src="$2" alt="$1" style="${parseCssInJsToInlineCss(
       finalStyles.image
-    )}" alt="$1" src="$2" />`
+    )}">`
   );
 
   // Handle links (e.g., [link text](url))
@@ -346,9 +349,7 @@ export function parseMarkdownToReactEmailJSX({
     patterns.link,
     `<a${
       withDataAttr ? ' data-id="react-email-link"' : ""
-    } target="_blank" href="$2" style="${parseCssInJsToInlineCss(
-      finalStyles.link
-    )}">$1</a>`
+    } style="${parseCssInJsToInlineCss(finalStyles.link)}"  href="$2" >$1</a>`
   );
 
   // Handle code blocks (e.g., ```code```)
@@ -389,5 +390,5 @@ export function parseMarkdownToReactEmailJSX({
     } style="${parseCssInJsToInlineCss(finalStyles.hr)}" />`
   );
 
-  return reactMailTemplate;
+  return sanitize(reactMailTemplate, { USE_PROFILES: { html: true } });
 }

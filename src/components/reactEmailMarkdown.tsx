@@ -1,7 +1,6 @@
 import * as React from "react";
 import { StylesType } from "../types";
 import { parseMarkdownToReactEmailJSX } from "../utils";
-import { sanitize } from "isomorphic-dompurify";
 
 interface ReactEmailMarkdownProps {
   markdown: string;
@@ -25,7 +24,7 @@ export const ReactEmailMarkdown: React.FC<ReactEmailMarkdownProps> = ({
   return (
     <div
       style={markdownContainerStyles}
-      dangerouslySetInnerHTML={{ __html: sanitize(parsedMarkdown) }}
+      dangerouslySetInnerHTML={{ __html: parsedMarkdown }}
     />
   );
 };

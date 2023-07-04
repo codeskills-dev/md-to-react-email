@@ -54,7 +54,7 @@ const codeInline = {
   fontSize: "87.5%",
   display: "inline",
   background: " #f8f8f8",
-  fontFamily: `SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace`,
+  fontFamily: `SFMono-Regular,Menlo,Monaco,Consolas,monospace`,
 };
 
 const codeBlock = {
