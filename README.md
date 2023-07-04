@@ -65,9 +65,11 @@ npm install md-to-react-email
         import {parseMarkdownToReactEmailJSX} from "md-to-react-email"
 
         const markdown = `# Hello World`
-        const parsedReactMail = parseMarkdownToReactEmail(markdown)
+        const parsedReactMail = parseMarkdownToReactEmailJSX({markdown})
+        const parsedReactMailWithDataAttributes = parseMarkdownToReactEmailJSX({markdown, withDataAttr: true})
 
-        console.log(parsedReactMail) // `<Heading as="h1" style="...valid inline CSS..."></Heading>`
+        console.log(parsedReactMail) // `<h1 style="...valid inline CSS...">Hello, World!</h1>`
+        console.log(parsedReactMailWithDataAttributes) // `<h1 data-id="react-email-heading" style="...valid inline CSS...">Hello, World!</h1>`
 
         ```
 
@@ -98,6 +100,8 @@ The following components are available for customization:
 - Image
 - Line-breaks (br)
 - Horizontal-rule (hr)
+- Table: table, thead, tbody, th, td, tr
+- Strikethrough
 
 ## Supported Email Clients
 

@@ -7,17 +7,19 @@ interface ReactEmailMarkdownProps {
   markdown: string;
   markdownCustomStyles?: StylesType;
   markdownContainerStyles?: React.CSSProperties;
+  showDataAttributes?: boolean;
 }
 
 export const ReactEmailMarkdown: React.FC<ReactEmailMarkdownProps> = ({
   markdown,
   markdownCustomStyles,
   markdownContainerStyles,
+  showDataAttributes = true,
 }) => {
   const parsedMarkdown = parseMarkdownToReactEmailJSX({
     markdown,
     customStyles: markdownCustomStyles,
-    withDataAttr: true,
+    withDataAttr: showDataAttributes,
   });
 
   return (
