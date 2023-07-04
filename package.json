@@ -27,7 +27,8 @@
   },
   "author": {
     "name": "Paul Ehikhuemen",
-    "url": "https://github.com/lordelogos"
+    "url": "https://github.com/lordelogos",
+    "email": "paulehiks@gmail.com"
   },
   "license": "MIT",
   "devDependencies": {
