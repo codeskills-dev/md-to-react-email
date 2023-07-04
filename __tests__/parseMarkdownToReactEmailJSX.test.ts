@@ -44,7 +44,7 @@ describe("Markdown to React Mail JSX Parser", () => {
     const markdown = "[Codeskills](https://codeskills.dev)";
     const expected = `<a href="https://codeskills.dev" style="${parseCssInJsToInlineCss(
       styles.link
-    )}">Codeskills</a>`;
+    )}" target="_blank">Codeskills</a>`;
 
     const rendered = parseMarkdownToReactEmailJSX({ markdown });
     expect(rendered).toBe(expected);

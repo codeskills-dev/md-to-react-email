@@ -1,9 +1,16 @@
-import { sanitize } from "isomorphic-dompurify";
+import DOMPurify from "isomorphic-dompurify";
 import { patterns } from "./patterns";
 import { styles } from "./styles";
 import { StylesType } from "./types";
 
 import { CSSProperties } from "react";
+
+// hook to handle target="_blank" in all links
+DOMPurify.addHook("afterSanitizeAttributes", (node) => {
+  if ("target" in node) {
+    node.setAttribute("target", "_blank");
+  }
+});
 
 export function camelToKebabCase(str: string): string {
   return str.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
@@ -349,7 +356,9 @@ export function parseMarkdownToReactEmailJSX({
     patterns.link,
     `<a${
       withDataAttr ? ' data-id="react-email-link"' : ""
-    } style="${parseCssInJsToInlineCss(finalStyles.link)}"  href="$2" >$1</a>`
+    } style="${parseCssInJsToInlineCss(
+      finalStyles.link
+    )}"  href="$2" target="_blank" >$1</a>`
   );
 
   // Handle code blocks (e.g., ```code```)
@@ -390,5 +399,7 @@ export function parseMarkdownToReactEmailJSX({
     } style="${parseCssInJsToInlineCss(finalStyles.hr)}" />`
   );
 
-  return sanitize(reactMailTemplate, { USE_PROFILES: { html: true } });
+  return DOMPurify.sanitize(reactMailTemplate, {
+    USE_PROFILES: { html: true },
+  });
 }
