@@ -207,6 +207,15 @@ export function parseMarkdownToReactEmailJSX({
   customStyles,
   withDataAttr = false,
 }: ParseMarkdownToReactEmailJSXProps): string {
+  if (
+    markdown === undefined ||
+    markdown === null ||
+    markdown === "" ||
+    typeof markdown !== "string"
+  ) {
+    return "";
+  }
+
   const finalStyles = { ...styles, ...customStyles };
   let reactMailTemplate = "";
 

@@ -5,6 +5,36 @@ import {
 } from "../src";
 
 describe("Markdown to React Mail JSX Parser", () => {
+  it("handles empty string correctly", () => {
+    const markdown = "";
+    const expected = ``;
+
+    const rendered = parseMarkdownToReactEmailJSX({
+      markdown,
+    });
+    expect(rendered).toBe(expected);
+  });
+
+  it("handles undefined string correctly", () => {
+    const markdown = undefined as unknown as string;
+    const expected = ``;
+
+    const rendered = parseMarkdownToReactEmailJSX({
+      markdown,
+    });
+    expect(rendered).toBe(expected);
+  });
+
+  it("handles null string correctly", () => {
+    const markdown = null as unknown as string;
+    const expected = ``;
+
+    const rendered = parseMarkdownToReactEmailJSX({
+      markdown,
+    });
+    expect(rendered).toBe(expected);
+  });
+
   it("converts header one correctly", () => {
     const markdown = "# Hello, World!";
     const expected = `<h1 style="${parseCssInJsToInlineCss(
