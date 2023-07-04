@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [3.0.0](https://github.com/codeskills-dev/md-to-react-email/compare/v2.0.2...v3.0.0) (2023-06-20)
+
+### Features
+
+- Made `data-id` attributes optional in rendered markup
+- Added sanitization for markdown output in react-email component
+- Updated `parseMarkdownToReactEmailJSX` function usage synthax
+
 ### [2.0.2](https://github.com/codeskills-dev/md-to-react-email/compare/v2.0.1...v2.0.2) (2023-06-20)
 
 ### Features
