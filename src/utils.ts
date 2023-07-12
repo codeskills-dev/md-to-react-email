@@ -329,17 +329,17 @@ export function parseMarkdownToReactEmailJSX({
   // Handle bold text (e.g., **bold**)
   reactMailTemplate = reactMailTemplate.replace(
     patterns.bold,
-    `<p${
+    `<strong${
       withDataAttr ? ' data-id="react-email-text"' : ""
-    } style="${parseCssInJsToInlineCss(finalStyles.bold)}">$1</p>`
+    } style="${parseCssInJsToInlineCss(finalStyles.bold)}">$1</strong>`
   );
 
   // Handle italic text (e.g., *italic*)
   reactMailTemplate = reactMailTemplate.replace(
     patterns.italic,
-    `<p${
+    `<i${
       withDataAttr ? ' data-id="react-email-text"' : ""
-    } style="${parseCssInJsToInlineCss(finalStyles.italic)}">$1</p>`
+    } style="${parseCssInJsToInlineCss(finalStyles.italic)}">$1</i>`
   );
 
   // Handle lists (unordered and ordered)
