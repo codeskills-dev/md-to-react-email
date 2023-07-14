@@ -72,21 +72,31 @@ describe("Markdown to React Mail JSX Parser", () => {
 
   it("converts links correctly", () => {
     const markdown = "[Codeskills](https://codeskills.dev)";
-    const expected = `<a href="https://codeskills.dev" style="${parseCssInJsToInlineCss(
+    const expected = `<p style="${parseCssInJsToInlineCss(
+      styles.p
+    )}"><a href="https://codeskills.dev" style="${parseCssInJsToInlineCss(
       styles.link
-    )}" target="_blank">Codeskills</a>`;
+    )}" target="_blank">Codeskills</a></p>`;
 
     const rendered = parseMarkdownToReactEmailJSX({ markdown });
     expect(rendered).toBe(expected);
   });
 
   it("converts code blocks correctly", () => {
-    const markdown = '```javascript\nconsole.log("Hello, World!");\n```';
+    const markdown = '```console.log("Hello, World!");```';
     const expected = `<pre style="${parseCssInJsToInlineCss(
       styles.codeBlock
-    )}"><p>{\`javascript
-console.log("Hello, World!");
-\`}</p></pre>`;
+    )}">{console.log("Hello, World!");}</pre>`;
+
+    const rendered = parseMarkdownToReactEmailJSX({ markdown });
+    expect(rendered).toBe(expected);
+  });
+
+  it("converts inline code correctly", () => {
+    const markdown = `\`console.log("Hello, World!");\``;
+    const expected = `<p style="${parseCssInJsToInlineCss(
+      styles.codeInline
+    )}">console.log("Hello, World!");</p>`;
 
     const rendered = parseMarkdownToReactEmailJSX({ markdown });
     expect(rendered).toBe(expected);
@@ -113,9 +123,11 @@ console.log("Hello, World!");
 
   it("converts strikethrough blocks correctly", () => {
     const markdown = "~~This is a paragraph.~~";
-    const expected = `<del style="${parseCssInJsToInlineCss(
+    const expected = `<p style="${parseCssInJsToInlineCss(
+      styles.p
+    )}"><del style="${parseCssInJsToInlineCss(
       styles.strikethrough
-    )}">This is a paragraph.</del>`;
+    )}">This is a paragraph.</del></p>`;
 
     const rendered = parseMarkdownToReactEmailJSX({ markdown });
     expect(rendered).toBe(expected);
