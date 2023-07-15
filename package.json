@@ -52,5 +52,8 @@
   },
   "dependencies": {
     "isomorphic-dompurify": "1.7.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
