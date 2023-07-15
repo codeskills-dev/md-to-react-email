@@ -21,7 +21,7 @@
   ],
   "scripts": {
     "build": "tsup",
-    "demo": "npx tsc src/test && node src/test",
+    "demo": "npx tsc src/demo && node src/demo",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
     "publish": "tsup && npm publish"

@@ -1,16 +1,15 @@
-// import DOMPurify from "isomorphic-dompurify";
+import DOMPurify from "isomorphic-dompurify";
 import { patterns } from "./patterns";
 import { styles } from "./styles";
 import { StylesType } from "./types";
-
 import { CSSProperties } from "react";
 
-// // hook to handle target="_blank" in all links
-// DOMPurify.addHook("afterSanitizeAttributes", (node) => {
-//   if ("target" in node) {
-//     node.setAttribute("target", "_blank");
-//   }
-// });
+// hook to handle target="_blank" in all links
+DOMPurify.addHook("afterSanitizeAttributes", (node) => {
+  if ("target" in node) {
+    node.setAttribute("target", "_blank");
+  }
+});
 
 export function camelToKebabCase(str: string): string {
   return str.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
@@ -33,36 +32,109 @@ export function parseMarkdownToReactEmail(
   const finalStyles = { ...styles, ...customStyles };
   let reactMailTemplate = "";
 
-  // Handle paragraphs
+  // Handle inline code (e.g., `code`)
   reactMailTemplate = markdown.replace(
+    patterns.codeInline,
+    `<Text${
+      JSON.stringify(finalStyles.codeInline) !== "{}"
+        ? ` style={${JSON.stringify(finalStyles.codeInline)}}`
+        : ""
+    }>$2</Text>`
+  );
+
+  // Handle code blocks (e.g., ```code```)
+  reactMailTemplate = reactMailTemplate.replace(
+    patterns.codeBlocks,
+    function (_, codeContent: string) {
+      const indentedCodeContent = codeContent
+        .split("\n")
+        .map((line) => `  ${line}`)
+        .join("\n");
+      return `<pre${
+        JSON.stringify(finalStyles.codeBlock) !== "{}"
+          ? ` style={${JSON.stringify(finalStyles.codeBlock)}}`
+          : ""
+      }>\n${indentedCodeContent}\n</pre>`;
+    }
+  );
+
+  // Handle blockquotes
+  function parseMarkdownWithBlockQuotes(markdown: string): string {
+    const blockquoteRegex = /^(>\s*((?:.+\n?)+))(?!\n(?=>\s))/gm;
+
+    function parseBlockQuote(match: string) {
+      const nestedContent = match.replace(/^>\s*/gm, "");
+      const nestedHTML = parseMarkdownWithBlockQuotes(nestedContent);
+      return `<Text${
+        JSON.stringify(finalStyles.blockQuote) !== "{}"
+          ? ` style={${JSON.stringify(finalStyles.blockQuote)}}`
+          : ""
+      }>\n${nestedHTML}\n</Text>`;
+    }
+
+    return markdown.replace(blockquoteRegex, parseBlockQuote);
+  }
+
+  reactMailTemplate = parseMarkdownWithBlockQuotes(reactMailTemplate);
+
+  // Handle paragraphs
+  reactMailTemplate = reactMailTemplate.replace(
     patterns.p,
-    `<Text style={${JSON.stringify(finalStyles.p)}}>$1</Text>`
+    `<Text${
+      JSON.stringify(finalStyles.p) !== "{}"
+        ? ` style={${JSON.stringify(finalStyles.p)}}`
+        : ""
+    }>$1</Text>`
   );
 
   // Handle headings (e.g., # Heading)
   reactMailTemplate = reactMailTemplate.replace(
     patterns.h1,
-    `<Heading as="h1" style={${JSON.stringify(finalStyles.h1)}}>$1</Heading>`
+    `<Heading as="h1"${
+      JSON.stringify(finalStyles.h1) !== "{}"
+        ? ` style={${JSON.stringify(finalStyles.h1)}}`
+        : ""
+    }>$1</Heading>`
   );
   reactMailTemplate = reactMailTemplate.replace(
     patterns.h2,
-    `<Heading as="h2" style={${JSON.stringify(finalStyles.h2)}}>$1</Heading>`
+    `<Heading as="h2"${
+      JSON.stringify(finalStyles.h2) !== "{}"
+        ? ` style={${JSON.stringify(finalStyles.h2)}}`
+        : ""
+    }>$1</Heading>`
   );
   reactMailTemplate = reactMailTemplate.replace(
     patterns.h3,
-    `<Heading as="h3" style={${JSON.stringify(finalStyles.h3)}}>$1</Heading>`
+    `<Heading as="h3"${
+      JSON.stringify(finalStyles.h3) !== "{}"
+        ? ` style={${JSON.stringify(finalStyles.h3)}}`
+        : ""
+    }>$1</Heading>`
   );
   reactMailTemplate = reactMailTemplate.replace(
     patterns.h4,
-    `<Heading as="h4" style={${JSON.stringify(finalStyles.h4)}}>$1</Heading>`
+    `<Heading as="h4"${
+      JSON.stringify(finalStyles.h4) !== "{}"
+        ? ` style={${JSON.stringify(finalStyles.h4)}}`
+        : ""
+    }>$1</Heading>`
   );
   reactMailTemplate = reactMailTemplate.replace(
     patterns.h5,
-    `<Heading as="h5" style={${JSON.stringify(finalStyles.h5)}}>$1</Heading>`
+    `<Heading as="h5"${
+      JSON.stringify(finalStyles.h5) !== "{}"
+        ? ` style={${JSON.stringify(finalStyles.h5)}}`
+        : ""
+    }>$1</Heading>`
   );
   reactMailTemplate = reactMailTemplate.replace(
     patterns.h6,
-    `<Heading as="h6" style={${JSON.stringify(finalStyles.h6)}}>$1</Heading>`
+    `<Heading as="h6"${
+      JSON.stringify(finalStyles.h6) !== "{}"
+        ? ` style={${JSON.stringify(finalStyles.h6)}}`
+        : ""
+    }>$1</Heading>`
   );
 
   // Handle Tables from GFM
@@ -92,31 +164,49 @@ export function parseMarkdownToReactEmail(
             .split("|")
             .slice(1, -1)
             .map((cell) => cell.trim());
-          return `<tr style={${JSON.stringify(finalStyles.tr)}}>${cells
+          return `<tr${
+            JSON.stringify(finalStyles.tr) !== "{}"
+              ? ` style={${JSON.stringify(finalStyles.tr)}}`
+              : ""
+          }>${cells
             .map(
               (cell, index) =>
-                `<td style={${JSON.stringify(finalStyles.td)}} align="${
-                  alignments[index]
-                }">${cell}</td>`
+                `<td align="${alignments[index]}"${
+                  JSON.stringify(finalStyles.td) !== "{}"
+                    ? ` style={${JSON.stringify(finalStyles.td)}}`
+                    : ""
+                }>${cell}</td>`
             )
             .join("")}</tr>`;
         })
         .join("");
 
-      const table = `<table style={${JSON.stringify(
-        finalStyles.table
-      )}}><thead style={${JSON.stringify(
-        finalStyles.thead
-      )}}><tr style={${JSON.stringify(finalStyles.tr)}}>${headers
+      const table = `<table${
+        JSON.stringify(finalStyles.table) !== "{}"
+          ? ` style={${JSON.stringify(finalStyles.table)}}`
+          : ""
+      }><thead${
+        JSON.stringify(finalStyles.thead) !== "{}"
+          ? ` style={${JSON.stringify(finalStyles.thead)}}`
+          : ""
+      }><tr${
+        JSON.stringify(finalStyles.tr) !== "{}"
+          ? ` style={${JSON.stringify(finalStyles.tr)}}`
+          : ""
+      }>${headers
         .map(
           (header, index) =>
-            `<th style={${JSON.stringify(finalStyles.th)}} align="${
-              alignments[index]
-            }">${header}</th>`
+            `<th align="${alignments[index]}"${
+              JSON.stringify(finalStyles.th) !== "{}"
+                ? ` style={${JSON.stringify(finalStyles.th)}}`
+                : ""
+            }>${header}</th>`
         )
-        .join("")}</tr></thead><tbody style={${JSON.stringify(
-        finalStyles.tbody
-      )}}>${body}</tbody></table>`;
+        .join("")}</tr></thead><tbody${
+        JSON.stringify(finalStyles.tbody) !== "{}"
+          ? ` style={${JSON.stringify(finalStyles.tbody)}}`
+          : ""
+      }>${body}</tbody></table>`;
       return table;
     }
   );
@@ -124,76 +214,113 @@ export function parseMarkdownToReactEmail(
   // Handle strikethrough
   reactMailTemplate = reactMailTemplate.replace(
     patterns.strikethrough,
-    `<del style={${JSON.stringify(finalStyles.strikethrough)}}>$1</del>`
+    `<del${
+      JSON.stringify(finalStyles.strikethrough) !== "{}"
+        ? ` style={${JSON.stringify(finalStyles.strikethrough)}}`
+        : ""
+    }>$1</del>`
   );
 
   // Handle bold text (e.g., **bold**)
   reactMailTemplate = reactMailTemplate.replace(
     patterns.bold,
-    `<Text style={${JSON.stringify(finalStyles.bold)}}>$1</Text>`
+    `<strong${
+      JSON.stringify(finalStyles.bold) !== "{}"
+        ? ` style={${JSON.stringify(finalStyles.bold)}}`
+        : ""
+    }>$1</strong>`
   );
 
   // Handle italic text (e.g., *italic*)
   reactMailTemplate = reactMailTemplate.replace(
     patterns.italic,
-    `<Text style={${JSON.stringify(finalStyles.italic)}}>$1</Text>`
+    `<em${
+      JSON.stringify(finalStyles.italic) !== "{}"
+        ? ` style={${JSON.stringify(finalStyles.italic)}}`
+        : ""
+    }>$2</em>`
   );
 
-  // Handle lists (unordered and ordered)
+  // Handle lists (unordered)
   reactMailTemplate = reactMailTemplate.replace(
     patterns.li,
-    `<li style={${JSON.stringify(finalStyles.li)}}>$1</li>`
+    `<li${
+      JSON.stringify(finalStyles.li) !== "{}"
+        ? ` style={${JSON.stringify(finalStyles.li)}}`
+        : ""
+    }>$1</li>`
   );
   reactMailTemplate = reactMailTemplate.replace(
     patterns.ul,
-    `<ul style={${JSON.stringify(finalStyles.ul)}}>$&</ul>`
+    `<ul${
+      JSON.stringify(finalStyles.ul) !== "{}"
+        ? ` style={${JSON.stringify(finalStyles.ul)}}`
+        : ""
+    }>$&</ul>`
   );
+
+  // Handle lists (ordered)
+  reactMailTemplate = reactMailTemplate.replace(patterns.ol, function (match) {
+    const listItems = match
+      .split("\n")
+      .map((line) => {
+        const listItemContent = line.replace(/^\d+\.\s+/, "");
+        return listItemContent
+          ? `<li${
+              JSON.stringify(finalStyles.li) !== "{}"
+                ? ` style={${JSON.stringify(finalStyles.li)}}`
+                : ""
+            }>${listItemContent}</li>`
+          : "";
+      })
+      .join("\n");
+    return `<ol${
+      JSON.stringify(finalStyles.ol) !== "{}"
+        ? ` style={${JSON.stringify(finalStyles.ol)}}`
+        : ""
+    }>${listItems}</ol>`;
+  });
 
   // Handle images (e.g., ![alt text](url))
   reactMailTemplate = reactMailTemplate.replace(
     patterns.image,
-    `<Img style={${JSON.stringify(finalStyles.image)}} alt="$1" src="$2" />`
+    `<Img src="$2" alt="$1"${
+      JSON.stringify(finalStyles.image) !== "{}"
+        ? ` style={${JSON.stringify(finalStyles.image)}}`
+        : ""
+    } />`
   );
 
   // Handle links (e.g., [link text](url))
   reactMailTemplate = reactMailTemplate.replace(
     patterns.link,
-    `<Link href="$2" style={${JSON.stringify(finalStyles.link)}}>$1</Link>`
-  );
-
-  // Handle code blocks (e.g., ```code```)
-  reactMailTemplate = reactMailTemplate.replace(
-    patterns.codeBlocks,
-    `<pre style={${JSON.stringify(
-      finalStyles.codeBlock
-    )}}><Text>${`{\`$1\`}`}</Text></pre>`
-  );
-
-  // Handle inline code (e.g., `code`)
-  reactMailTemplate = reactMailTemplate.replace(
-    patterns.codeInline,
-    `<Text style={${JSON.stringify(finalStyles.codeInline)}}>$1</Text>`
-  );
-
-  // Handle block quotes
-  reactMailTemplate = reactMailTemplate.replace(
-    /^>\s+(.+)$/gm,
-    `<Text style={${JSON.stringify(finalStyles.blockQuote)}}>$1</Text>`
+    `<Link${
+      JSON.stringify(finalStyles.link) !== "{}"
+        ? ` style={${JSON.stringify(finalStyles.link)}}`
+        : ""
+    } href="$2" target="_blank" >$1</Link>`
   );
 
   // Handle line breaks (e.g., <br />)
   reactMailTemplate = reactMailTemplate.replace(
     patterns.br,
-    `<br style={${JSON.stringify(finalStyles.br)}} />`
+    `<br${
+      JSON.stringify(finalStyles.br) !== "{}"
+        ? ` style={${JSON.stringify(finalStyles.br)}}`
+        : ""
+    }/>`
   );
 
   // Handle horizontal rules (e.g., ---)
   reactMailTemplate = reactMailTemplate.replace(
     patterns.hr,
-    `<Hr style={${JSON.stringify(finalStyles.hr)}} />`
+    `<hr${
+      JSON.stringify(finalStyles.hr) !== "{}"
+        ? ` style={${JSON.stringify(finalStyles.hr)}}`
+        : ""
+    }/>`
   );
 
-  // Wrap content in a section tag
   reactMailTemplate = `<Section>${reactMailTemplate}</Section>`;
 
   return reactMailTemplate;
@@ -225,11 +352,11 @@ export function parseMarkdownToReactEmailJSX({
   // Handle inline code (e.g., `code`)
   reactMailTemplate = markdown.replace(
     patterns.codeInline,
-    `<pre${
+    `<code${
       parseCssInJsToInlineCss(finalStyles.codeInline) !== ""
         ? ` style="${parseCssInJsToInlineCss(finalStyles.codeInline)}"`
         : ""
-    }>$2</pre>`
+    }>$2</code>`
   );
 
   // Handle code blocks (e.g., ```code```)
@@ -511,8 +638,7 @@ export function parseMarkdownToReactEmailJSX({
     }/>`
   );
 
-  return reactMailTemplate;
-  // return DOMPurify.sanitize(reactMailTemplate, {
-  //   USE_PROFILES: { html: true },
-  // });
+  return DOMPurify.sanitize(reactMailTemplate, {
+    USE_PROFILES: { html: true },
+  });
 }

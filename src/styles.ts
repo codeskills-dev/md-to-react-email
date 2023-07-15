@@ -88,6 +88,7 @@ export const styles: StylesType = {
   p: emptyStyle,
   li: emptyStyle,
   ul: emptyStyle,
+  ol: emptyStyle,
   image: emptyStyle,
   br: emptyStyle,
   hr: emptyStyle,
