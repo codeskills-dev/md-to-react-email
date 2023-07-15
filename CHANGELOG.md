@@ -1,5 +1,24 @@
 # Change Log
 
+## 3.0.4
+
+### Patch Changes
+
+- b5f7677: ### Bug fixes
+
+  - Fixed issue with parsing paragraphs
+  - Converted bold and italics tag to <strong> and <em>
+  - Fixed issue with parsing nested blockquotes
+  - Fixed issue with parsing code blocks
+
+  ### Optimisations
+
+  This PR added optimisations for the following:
+
+  - Cleaning up unused style tags for the generated markup
+  - Moved the changesets
+  - Added CI workflows
+
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
