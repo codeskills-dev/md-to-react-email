@@ -22,6 +22,7 @@
   "scripts": {
     "build": "tsup",
     "demo": "npx tsc src/demo && node src/demo",
+    "lint": "tsc",
     "test": "jest --coverage",
     "test:watch": "jest --watch"
   },
