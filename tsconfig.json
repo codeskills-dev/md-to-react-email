@@ -17,7 +17,8 @@
       "noUnusedLocals": true,
       "noUnusedParameters": true,
       "allowSyntheticDefaultImports": true,
-      "esModuleInterop": true
+      "esModuleInterop": true,
+      "noEmit": true,
     },
     "include": ["src"],
     "exclude": ["node_modules", "dist", "example", "rollup.config.js", "pre-planning"]

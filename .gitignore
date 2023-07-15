@@ -6,3 +6,8 @@
 
 # Build files
 /dist
+
+# JS files
+*.js
+*.txt
+*.html

@@ -21,9 +21,10 @@
   ],
   "scripts": {
     "build": "tsup",
+    "demo": "npx tsc src/demo && node src/demo",
+    "lint": "tsc",
     "test": "jest --coverage",
-    "test:watch": "jest --watch",
-    "publish": "tsup && npm publish"
+    "test:watch": "jest --watch"
   },
   "author": {
     "name": "Paul Ehikhuemen",
@@ -41,6 +42,7 @@
     "ts-jest": "29.1.0",
     "ts-node": "10.9.1",
     "tsup": "6.7.0",
+    "@changesets/cli": "^2.26.2",
     "typescript": "5.1.3"
   },
   "peerDependencies": {
