@@ -23,6 +23,7 @@
     "build": "tsup",
     "demo": "npx tsc src/demo && node src/demo",
     "lint": "tsc",
+    "release": "pnpm run build && changeset publish",
     "test": "jest --coverage",
     "test:watch": "jest --watch"
   },
