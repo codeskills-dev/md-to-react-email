@@ -29,25 +29,7 @@ export type StylesType = {
   strikethrough?: CSSProperties;
 };
 
-export type Patterns = {
-  h1?: RegExp;
-  h2?: RegExp;
-  h3?: RegExp;
-  h4?: RegExp;
-  h5?: RegExp;
-  h6?: RegExp;
-  blockQuote?: RegExp;
-  bold?: RegExp;
-  italic?: RegExp;
-  link?: RegExp;
-  codeBlock?: RegExp;
-  codeInline?: RegExp;
-  p?: RegExp;
-  li?: RegExp;
-  ul?: RegExp;
-  image?: RegExp;
-  br?: RegExp;
-  hr?: RegExp;
-  table?: RegExp;
-  strikethrough?: RegExp;
+export type initRendererProps = {
+  customStyles?: StylesType;
+  withDataAttr?: boolean;
 };

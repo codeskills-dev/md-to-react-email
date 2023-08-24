@@ -1,27 +1,15 @@
 /**
- * Default Styles
- */
-export { styles } from "./styles";
-
-/**
- * Default Matchers
- */
-export { patterns } from "./patterns";
-
-/**
  * Types
  */
-export { Patterns, StylesType } from "./types";
+export { StylesType } from "./types";
 
 /**
- * Functions
+ * Utility Functions
  */
 export {
-  camelToKebabCase,
-  parseCssInJsToInlineCss,
-  parseMarkdownToReactEmail,
   parseMarkdownToReactEmailJSX,
-} from "./utils";
+  ParseMarkdownToReactEmailJSXProps,
+} from "./parseMarkdownToReactEmailJSX";
 
 /**
  * Components

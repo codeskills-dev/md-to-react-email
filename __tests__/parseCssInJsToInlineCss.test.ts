@@ -1,4 +1,4 @@
-import { parseCssInJsToInlineCss } from "../src";
+import { parseCssInJsToInlineCss } from "../src/utils";
 
 describe("parseCssInJsToInlineCss", () => {
   test("should return an empty string for undefined CSS properties", () => {
