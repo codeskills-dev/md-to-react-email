@@ -1,11 +1,5 @@
 import { MarkdownParser } from "./parser";
-import { StylesType } from "./types";
-
-export type ParseMarkdownToReactEmailJSXProps = {
-  markdown: string;
-  customStyles?: StylesType;
-  withDataAttr?: boolean;
-};
+import { ParseMarkdownToReactEmailJSXProps } from "./types";
 
 export const parseMarkdownToReactEmailJSX = ({
   markdown,
