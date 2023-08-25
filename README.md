@@ -86,7 +86,7 @@ The following components are available for customization:
 - Text: paragraphs, bold and italic text
 - Links
 - Code: Code blocks and inline code
-- Lists: ul, li
+- Lists: ul, ol, li
 - Image
 - Line-breaks (br)
 - Horizontal-rule (hr)
