@@ -5,7 +5,7 @@ dependencies:
     specifier: 1.7.0
     version: 1.7.0
   marked:
-    specifier: ^7.0.4
+    specifier: 7.0.4
     version: 7.0.4
 
 devDependencies:
