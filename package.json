@@ -21,7 +21,6 @@
   ],
   "scripts": {
     "build": "tsup",
-    "demo": "npx tsc src/demo && node src/demo",
     "lint": "tsc",
     "release": "pnpm run build && changeset publish",
     "test": "jest --coverage",
@@ -34,6 +33,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@changesets/cli": "^2.26.2",
     "@react-email/render": "0.0.7",
     "@types/jest": "29.5.2",
     "@types/react": "18.2.8",
@@ -43,7 +43,6 @@
     "ts-jest": "29.1.0",
     "ts-node": "10.9.1",
     "tsup": "6.7.0",
-    "@changesets/cli": "^2.26.2",
     "typescript": "5.1.3"
   },
   "peerDependencies": {
@@ -51,7 +50,8 @@
     "react-email": ">1.9.3"
   },
   "dependencies": {
-    "isomorphic-dompurify": "1.7.0"
+    "isomorphic-dompurify": "1.7.0",
+    "marked": "7.0.4"
   },
   "publishConfig": {
     "access": "public"

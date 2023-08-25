@@ -1,29 +1,19 @@
 /**
- * Default Styles
- */
-export { styles } from "./styles";
-
-/**
- * Default Matchers
- */
-export { patterns } from "./patterns";
-
-/**
  * Types
  */
-export { Patterns, StylesType } from "./types";
+export { StylesType, ParseMarkdownToReactEmailJSXProps } from "./types";
 
 /**
- * Functions
+ * Utility Functions
  */
-export {
-  camelToKebabCase,
-  parseCssInJsToInlineCss,
-  parseMarkdownToReactEmail,
-  parseMarkdownToReactEmailJSX,
-} from "./utils";
+export { parseMarkdownToReactEmailJSX } from "./parseMarkdownToReactEmailJSX";
 
 /**
  * Components
  */
 export { ReactEmailMarkdown } from "./components";
+
+/**
+ * String Utils
+ */
+export { camelToKebabCase, parseCssInJsToInlineCss } from "./utils";

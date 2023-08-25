@@ -1,6 +1,6 @@
 import * as React from "react";
 import { StylesType } from "../types";
-import { parseMarkdownToReactEmailJSX } from "../utils";
+import { parseMarkdownToReactEmailJSX } from "../parseMarkdownToReactEmailJSX";
 
 interface ReactEmailMarkdownProps {
   markdown: string;

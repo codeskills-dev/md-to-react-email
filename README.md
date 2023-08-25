@@ -6,12 +6,13 @@ Read the documentation [here](https://md2re.codeskills.dev/)
 
 md-to-react-email is a lightweight utility for converting [Markdown](https://www.markdownguide.org/) into valid [React-email](https://react.email) templates. This tool simplifies the process of creating responsive and customizable email templates by leveraging the power of React and Markdown.
 
+**Note**: Starting from `version 4`, `md-to-react-email` uses [`Marked`](https://marked.js.org/) for markdown transformation. see all changes [here](/CHANGELOG.md)
+
 ### Support
 
 The following markdown flavors are supported
 
 - Offical markdown flavour
-- Github flavoured markdown
 
 ## Installation
 
@@ -35,7 +36,6 @@ npm install md-to-react-email
 
 - `camelToKebabCase`: converts strings from camelcase ['thisIsCamelCase'] to kebab case ['this-is-kebab-case']
 - `parseCssInJsToInlineCss`: converts css styles from css-in-js to inline css e.g fontSize: "18px" => font-size: 18px;
-- `parseMarkdownToReactEmail`: parses markdown to a valid react-email string that can be copied and pasted directly into your codebase
 - `parseMarkdownToReactEmailJSX`: parses markdown to valid react-email JSX for the client (i.e the browser)
 
 ### Components:
@@ -75,18 +75,6 @@ npm install md-to-react-email
 
         ```
 
-- For code generation (copy and paste)
-
-        ```
-        import {parseMarkdownToReactEmail} from "md-to-react-email"
-
-        const markdown = `# Hello World`
-        const parsedReactMail = parseMarkdownToReactEmail(markdown)
-
-        console.log(parsedReactMail) // `<Heading as="h1" style={...styles go here...}></Heading>`
-
-        ```
-
 ## Components
 
 md-to-react-email contains pre-defined react-email and html components for the email template structure and styling. You can modify these components to customize the look and feel of your email template.
@@ -98,7 +86,7 @@ The following components are available for customization:
 - Text: paragraphs, bold and italic text
 - Links
 - Code: Code blocks and inline code
-- Lists: ul, li
+- Lists: ul, ol, li
 - Image
 - Line-breaks (br)
 - Horizontal-rule (hr)
