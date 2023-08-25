@@ -1,6 +1,6 @@
 {
   "name": "md-to-react-email",
-  "version": "3.0.4",
+  "version": "4.0.0",
   "description": "A simple Markdown parser for React-email written in typescript.",
   "keywords": [
     "markdown",
