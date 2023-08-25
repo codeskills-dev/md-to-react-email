@@ -21,7 +21,6 @@
   ],
   "scripts": {
     "build": "tsup",
-    "demo": "npx tsc src/demo && node src/demo",
     "lint": "tsc",
     "release": "pnpm run build && changeset publish",
     "test": "jest --coverage",
@@ -52,7 +51,7 @@
   },
   "dependencies": {
     "isomorphic-dompurify": "1.7.0",
-    "marked": "^7.0.4"
+    "marked": "7.0.4"
   },
   "publishConfig": {
     "access": "public"
