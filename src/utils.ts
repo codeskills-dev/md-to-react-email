@@ -154,7 +154,7 @@ export const initRenderer = ({
         parseCssInJsToInlineCss(finalStyles.image) !== ""
           ? ` style="${parseCssInJsToInlineCss(finalStyles.image)}"`
           : ""
-      } />`;
+      }>`;
       return out;
     },
 
@@ -179,7 +179,7 @@ export const initRenderer = ({
         "<" +
         type +
         startatt +
-        `${styles !== "" ? ` style="${styles}"` : ""} >\n` +
+        `${styles !== "" ? ` style="${styles}"` : ""}>\n` +
         body +
         "</" +
         type +
