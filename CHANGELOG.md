@@ -1,5 +1,17 @@
 # Change Log
 
+## 4.1.0
+
+### Minor Changes
+
+- c78e7e4: ### Changes
+
+  - Remove `DOMPurify` from lib
+
+  ### Fixes
+
+  - Fixed unordered list `ul` styles
+
 ## 4.0.0
 
 ### Major Changes
