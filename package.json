@@ -50,7 +50,6 @@
     "react-email": ">1.9.3"
   },
   "dependencies": {
-    "isomorphic-dompurify": "1.7.0",
     "marked": "7.0.4"
   },
   "publishConfig": {

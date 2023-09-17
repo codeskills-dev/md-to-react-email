@@ -154,7 +154,7 @@ export const initRenderer = ({
         parseCssInJsToInlineCss(finalStyles.image) !== ""
           ? ` style="${parseCssInJsToInlineCss(finalStyles.image)}"`
           : ""
-      } />`;
+      }>`;
       return out;
     },
 
@@ -172,17 +172,14 @@ export const initRenderer = ({
     list(body, ordered, start) {
       const type = ordered ? "ol" : "ul";
       const startatt = ordered && start !== 1 ? ' start="' + start + '"' : "";
+      const styles = parseCssInJsToInlineCss(
+        finalStyles[ordered ? "ol" : "ul"]
+      );
       return (
         "<" +
         type +
         startatt +
-        `${
-          parseCssInJsToInlineCss(finalStyles.ol) !== ""
-            ? ` style="${parseCssInJsToInlineCss(
-                finalStyles[ordered ? "ol" : "ul"]
-              )}"`
-            : ""
-        } >\n` +
+        `${styles !== "" ? ` style="${styles}"` : ""}>\n` +
         body +
         "</" +
         type +
