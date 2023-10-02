@@ -1,24 +1,21 @@
 import * as React from "react";
 import { StylesType } from "../types";
-import { parseMarkdownToReactEmailJSX } from "../parseMarkdownToReactEmailJSX";
+import { parseMarkdownToJSX } from "../parseMarkdownToJSX";
 
-interface ReactEmailMarkdownProps {
+interface EmailMarkdownProps {
   markdown: string;
   markdownCustomStyles?: StylesType;
   markdownContainerStyles?: React.CSSProperties;
-  showDataAttributes?: boolean;
 }
 
-export const ReactEmailMarkdown: React.FC<ReactEmailMarkdownProps> = ({
+export const EmailMarkdown: React.FC<EmailMarkdownProps> = ({
   markdown,
   markdownCustomStyles,
   markdownContainerStyles,
-  showDataAttributes = true,
 }) => {
-  const parsedMarkdown = parseMarkdownToReactEmailJSX({
+  const parsedMarkdown = parseMarkdownToJSX({
     markdown,
     customStyles: markdownCustomStyles,
-    withDataAttr: showDataAttributes,
   });
 
   return (
