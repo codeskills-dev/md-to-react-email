@@ -1,6 +1,6 @@
-import { parseMarkdownToReactEmailJSX } from "../src";
+import { parseMarkdownToJSX } from "../src";
 
-describe("Markdown to React Mail JSX Parser", () => {
+describe("Markdown to JSX Parser", () => {
   it("handles markdown correctly", () => {
     const markdown = `# Markdown Test Document
 
@@ -77,7 +77,7 @@ console.log(\`Hello, $\{name\}!\`);
 </code></pre>
 `;
 
-    const rendered = parseMarkdownToReactEmailJSX({
+    const rendered = parseMarkdownToJSX({
       markdown,
     });
     expect(rendered).toBe(expected);
@@ -87,7 +87,7 @@ console.log(\`Hello, $\{name\}!\`);
     const markdown = "";
     const expected = ``;
 
-    const rendered = parseMarkdownToReactEmailJSX({
+    const rendered = parseMarkdownToJSX({
       markdown,
     });
     expect(rendered).toBe(expected);
@@ -103,7 +103,7 @@ console.log(\`Hello, $\{name\}!\`);
 `;
     const expected = `<h1 style="font-weight:500;padding-top:20px;font-size:2.5rem">Header 1</h1><h2 style="font-weight:500;padding-top:20px;font-size:2rem">Header 2</h2><h3 style="font-weight:500;padding-top:20px;font-size:1.75rem">Header 3</h3><h4 style="font-weight:500;padding-top:20px;font-size:1.5rem">Header 4</h4><h5 style="font-weight:500;padding-top:20px;font-size:1.25rem">Header 5</h5><h6 style="font-weight:500;padding-top:20px;font-size:1rem">Header 6</h6>`;
 
-    const rendered = parseMarkdownToReactEmailJSX({
+    const rendered = parseMarkdownToJSX({
       markdown,
     });
     expect(rendered).toBe(expected);
@@ -119,7 +119,7 @@ This is two
 <p>This is two</p>
 `;
 
-    const rendered = parseMarkdownToReactEmailJSX({
+    const rendered = parseMarkdownToJSX({
       markdown,
     });
     expect(rendered).toBe(expected);
@@ -134,7 +134,7 @@ This is ~~striked~~ text and \`inline code\``;
 <p>This is <del>striked</del> text and <code style="color:#212529;font-size:87.5%;display:inline;background: #f8f8f8;font-family:SFMono-Regular,Menlo,Monaco,Consolas,monospace;word-wrap:break-word">inline code</code></p>
 `;
 
-    const rendered = parseMarkdownToReactEmailJSX({
+    const rendered = parseMarkdownToJSX({
       markdown,
     });
     expect(rendered).toBe(expected);
@@ -166,7 +166,7 @@ Here is an ordered list:
 </ol>
 `;
 
-    const rendered = parseMarkdownToReactEmailJSX({
+    const rendered = parseMarkdownToJSX({
       markdown,
     });
     expect(rendered).toBe(expected);
@@ -199,7 +199,7 @@ Here is an ordered list:
 </tbody></table>
 `;
 
-    const rendered = parseMarkdownToReactEmailJSX({
+    const rendered = parseMarkdownToJSX({
       markdown,
     });
     expect(rendered).toBe(expected);
@@ -224,7 +224,7 @@ greet("World")
 </code></pre>
 `;
 
-    const rendered = parseMarkdownToReactEmailJSX({
+    const rendered = parseMarkdownToJSX({
       markdown,
     });
     expect(rendered).toBe(expected);
@@ -242,7 +242,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 </blockquote>
 `;
 
-    const rendered = parseMarkdownToReactEmailJSX({
+    const rendered = parseMarkdownToJSX({
       markdown,
     });
     expect(rendered).toBe(expected);
@@ -256,7 +256,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 <img src="https://example.com/image.jpg" alt="Image description"></p>
 `;
 
-    const rendered = parseMarkdownToReactEmailJSX({
+    const rendered = parseMarkdownToJSX({
       markdown,
     });
     expect(rendered).toBe(expected);
@@ -270,7 +270,7 @@ Here's a link to [OpenAI\'s website](https://openai.com/).`;
 Here&#39;s a link to <a href="https://openai.com/" target="_blank" style="color:#007bff;text-decoration:underline;background-color:transparent">OpenAI&#39;s website</a>.</p>
 `;
 
-    const rendered = parseMarkdownToReactEmailJSX({
+    const rendered = parseMarkdownToJSX({
       markdown,
     });
     expect(rendered).toBe(expected);

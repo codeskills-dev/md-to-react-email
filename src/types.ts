@@ -31,11 +31,9 @@ export type StylesType = {
 
 export type initRendererProps = {
   customStyles?: StylesType;
-  withDataAttr?: boolean;
 };
 
-export type ParseMarkdownToReactEmailJSXProps = {
+export type parseMarkdownToJSXProps = {
   markdown: string;
   customStyles?: StylesType;
-  withDataAttr?: boolean;
 };

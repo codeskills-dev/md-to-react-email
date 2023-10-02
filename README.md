@@ -4,7 +4,7 @@ Read the documentation [here](https://md2re.codeskills.dev/)
 
 ## Description
 
-md-to-react-email is a lightweight utility for converting [Markdown](https://www.markdownguide.org/) into valid [React-email](https://react.email) templates. This tool simplifies the process of creating responsive and customizable email templates by leveraging the power of React and Markdown.
+md-to-react-email is a lightweight utility for converting [Markdown](https://www.markdownguide.org/) into valid JSX that can be used in [React-email](https://react.email) or [JSX-email](https://jsx.email) templates. This tool simplifies the process of creating responsive and customizable email templates by leveraging the power of React and Markdown.
 
 **Note**: Starting from `version 4`, `md-to-react-email` uses [`Marked`](https://marked.js.org/) for markdown transformation. see all changes [here](/CHANGELOG.md)
 
@@ -36,25 +36,25 @@ npm install md-to-react-email
 
 - `camelToKebabCase`: converts strings from camelcase ['thisIsCamelCase'] to kebab case ['this-is-kebab-case']
 - `parseCssInJsToInlineCss`: converts css styles from css-in-js to inline css e.g fontSize: "18px" => font-size: 18px;
-- `parseMarkdownToReactEmailJSX`: parses markdown to valid react-email JSX for the client (i.e the browser)
+- `parseMarkdownToJSX`: parses markdown to valid JSX for the client (i.e the browser)
 
 ### Components:
 
-- `ReactEmailMarkdown`: a react-email component that takes in markdown input and parses it directly in your code base
+- `EmailMarkdown`: a react component that takes in markdown input and parses it directly in your code base
 
 ## Usage:
 
-- Directly as [`React-email`](https://react.email) component
+- Directly as [`React-email`](https://react.email) or [`JSX-email`](https://jsx.email) component
 
         ```
-        import {ReactEmailMarkdown} from "md-to-react-email"
+        import {EmailMarkdown} from "md-to-react-email"
 
         export default function EmailTemplate() {
         return (
                 <Email>
                         <Head />
                         <Section>
-                        <ReactEmailMarkdown markdown={`# Hello, World!`} />
+                        <EmailMarkdown markdown={`# Hello, World!`} />
                         </Section>
                 </Email>
         )
@@ -64,20 +64,17 @@ npm install md-to-react-email
 - Directly into react-email template
 
         ```
-        import {parseMarkdownToReactEmailJSX} from "md-to-react-email"
+        import {parseMarkdownToJSX} from "md-to-react-email"
 
         const markdown = `# Hello World`
-        const parsedReactMail = parseMarkdownToReactEmailJSX({markdown})
-        const parsedReactMailWithDataAttributes = parseMarkdownToReactEmailJSX({markdown, withDataAttr: true})
+        const parsedReactMail = parseMarkdownToJSX({markdown})
 
         console.log(parsedReactMail) // `<h1 style="...valid inline CSS...">Hello, World!</h1>`
-        console.log(parsedReactMailWithDataAttributes) // `<h1 data-id="react-email-heading" style="...valid inline CSS...">Hello, World!</h1>`
-
         ```
 
 ## Components
 
-md-to-react-email contains pre-defined react-email and html components for the email template structure and styling. You can modify these components to customize the look and feel of your email template.
+md-to-react-email contains pre-defined react and html components for the email template structure and styling. You can modify these components to customize the look and feel of your email template.
 
 The following components are available for customization:
 
@@ -95,7 +92,7 @@ The following components are available for customization:
 
 ## Supported Email Clients
 
-The provided React-email components and default styling are designed to work well across various email clients and providers. However, due to the inconsistent support for modern web standards in different email clients, it's recommended to test your email templates in multiple clients to ensure compatibility.
+The provided React components and default styling are designed to work well across various email clients and providers. However, due to the inconsistent support for modern web standards in different email clients, it's recommended to test your email templates in multiple clients to ensure compatibility.
 
 The following email clients are known to be supported:
 

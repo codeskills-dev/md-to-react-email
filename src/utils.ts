@@ -72,7 +72,6 @@ export function parseCssInJsToInlineCss(
 
 export const initRenderer = ({
   customStyles,
-  withDataAttr = false,
 }: initRendererProps): RendererObject => {
   const finalStyles = { ...styles, ...customStyles };
 
@@ -136,13 +135,11 @@ export const initRenderer = ({
               finalStyles[`h${level}` as keyof StylesType]
             )}"`
           : ""
-      }${
-        withDataAttr ? ' data-id="react-email-heading"' : ""
       }>${text}</h${level}>`;
     },
 
     hr() {
-      return `<hr${withDataAttr ? ' data-id="react-email-hr"' : ""}${
+      return `<hr${
         parseCssInJsToInlineCss(finalStyles.hr) !== ""
           ? ` style="${parseCssInJsToInlineCss(finalStyles.hr)}"`
           : ""
@@ -160,8 +157,6 @@ export const initRenderer = ({
 
     link(href, _, text) {
       let out = `<a href="${href}" target="_blank"${
-        withDataAttr ? ' data-id="react-email-link"' : ""
-      }${
         parseCssInJsToInlineCss(finalStyles.link) !== ""
           ? ` style="${parseCssInJsToInlineCss(finalStyles.link)}"`
           : ""
@@ -200,7 +195,7 @@ export const initRenderer = ({
         parseCssInJsToInlineCss(finalStyles.p) !== ""
           ? ` style="${parseCssInJsToInlineCss(finalStyles.p)}"`
           : ""
-      }${withDataAttr ? ' data-id="react-email-text"' : ""}>${text}</p>\n`;
+      }>${text}</p>\n`;
     },
 
     strong(text) {
