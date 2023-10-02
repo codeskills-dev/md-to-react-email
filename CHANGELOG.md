@@ -1,5 +1,16 @@
 # Change Log
 
+## 5.0.0
+
+### Major Changes
+
+- b6f11cc: Rename exports to be generic
+
+  ### Removed
+
+  - remove `data-id` attributes from components, utils and types
+  - `react-email` peer and dev dependency
+
 ## 4.1.0
 
 ### Minor Changes
