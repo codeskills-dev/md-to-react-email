@@ -1,17 +1,17 @@
 /**
  * Types
  */
-export { StylesType, ParseMarkdownToReactEmailJSXProps } from "./types";
+export { StylesType, parseMarkdownToJSXProps } from "./types";
 
 /**
  * Utility Functions
  */
-export { parseMarkdownToReactEmailJSX } from "./parseMarkdownToReactEmailJSX";
+export { parseMarkdownToJSX } from "./parseMarkdownToJSX";
 
 /**
  * Components
  */
-export { ReactEmailMarkdown } from "./components";
+export { EmailMarkdown } from "./components";
 
 /**
  * String Utils
