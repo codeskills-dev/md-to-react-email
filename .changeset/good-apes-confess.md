@@ -4,4 +4,4 @@
 
 ## Fixes
 
-- Markdown custom styles can't handle qoutes properly
+- Markdown custom styles can't handle quotes properly
