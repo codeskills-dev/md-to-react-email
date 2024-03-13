@@ -5,7 +5,7 @@ import { styles } from "./styles";
 
 function escapeQuotes(value: string) {
   if (value.includes('"')) {
-    return value.replace(/"/g, "'");
+    return value.replace(/"/g, "&#x27;");
   }
   return value;
 }
