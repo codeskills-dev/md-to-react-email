@@ -1,5 +1,11 @@
 # Change Log
 
+## 5.0.2
+
+### Patch Changes
+
+- a916ef1: Fix: replace quotes in custom styles with html hex code
+
 ## 5.0.1
 
 ### Patch Changes
