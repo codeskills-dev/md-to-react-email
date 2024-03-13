@@ -33,4 +33,15 @@ describe("parseCssInJsToInlineCss", () => {
     const cssProperties = {};
     expect(parseCssInJsToInlineCss(cssProperties)).toBe("");
   });
+
+  test("should handle CSS properties with escaped quotes", () => {
+    const cssProperties = {
+      font: '700 23px / 32px "Roobert PRO", system-ui, sans-serif',
+      background: "url('path/to/image')",
+    };
+
+    const expectedOutput =
+      "font:700 23px / 32px 'Roobert PRO', system-ui, sans-serif;background:url('path/to/image')";
+    expect(parseCssInJsToInlineCss(cssProperties)).toBe(expectedOutput);
+  });
 });
