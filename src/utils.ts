@@ -3,6 +3,13 @@ import { StylesType, initRendererProps } from "./types";
 import { RendererObject } from "marked";
 import { styles } from "./styles";
 
+function escapeQuotes(value: string) {
+  if (value.includes('"')) {
+    return value.replace(/"/g, "'");
+  }
+  return value;
+}
+
 export function camelToKebabCase(str: string): string {
   return str.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
 }
@@ -64,7 +71,8 @@ export function parseCssInJsToInlineCss(
       ) {
         return `${camelToKebabCase(property)}:${value}px`;
       } else {
-        return `${camelToKebabCase(property)}:${value}`;
+        const escapedValue = escapeQuotes(value);
+        return `${camelToKebabCase(property)}:${escapedValue}`;
       }
     })
     .join(";");
