@@ -1,5 +1,13 @@
 # Change Log
 
+## 5.0.1
+
+### Patch Changes
+
+- 092dd65: ## Fixes
+
+  - Markdown custom styles can't handle quotes properly
+
 ## 5.0.0
 
 ### Major Changes
