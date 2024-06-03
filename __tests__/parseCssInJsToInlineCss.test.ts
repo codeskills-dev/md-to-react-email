@@ -41,7 +41,7 @@ describe("parseCssInJsToInlineCss", () => {
     };
 
     const expectedOutput =
-      "font:700 23px / 32px 'Roobert PRO', system-ui, sans-serif;background:url('path/to/image')";
+      "font:700 23px / 32px &#x27;Roobert PRO&#x27;, system-ui, sans-serif;background:url('path/to/image')";
     expect(parseCssInJsToInlineCss(cssProperties)).toBe(expectedOutput);
   });
 });
