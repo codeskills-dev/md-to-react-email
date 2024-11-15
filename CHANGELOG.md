@@ -1,5 +1,11 @@
 # Change Log
 
+## 5.0.3
+
+### Patch Changes
+
+- 5f1e815: Fixes inner error for styles like `fontWeight: 500`
+
 ## 5.0.2
 
 ### Patch Changes
