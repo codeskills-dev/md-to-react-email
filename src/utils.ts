@@ -3,8 +3,8 @@ import { StylesType, initRendererProps } from "./types";
 import { RendererObject } from "marked";
 import { styles } from "./styles";
 
-function escapeQuotes(value: string) {
-  if (value.includes('"')) {
+function escapeQuotes(value: unknown) {
+  if (typeof value === 'string' && value.includes('"')) {
     return value.replace(/"/g, "&#x27;");
   }
   return value;
