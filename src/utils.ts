@@ -1,6 +1,6 @@
 import { CSSProperties } from "react";
 import { StylesType, initRendererProps } from "./types";
-import { RendererObject } from "marked";
+import { Renderer } from "marked";
 import { styles } from "./styles";
 
 function escapeQuotes(value: unknown) {
@@ -80,100 +80,99 @@ export function parseCssInJsToInlineCss(
 
 export const initRenderer = ({
   customStyles,
-}: initRendererProps): RendererObject => {
+}: initRendererProps): Renderer => {
   const finalStyles = { ...styles, ...customStyles };
 
-  const customRenderer: RendererObject = {
-    blockquote(quote) {
-      return `<blockquote${
-        parseCssInJsToInlineCss(finalStyles.blockQuote) !== ""
-          ? ` style="${parseCssInJsToInlineCss(finalStyles.blockQuote)}"`
-          : ""
-      }>\n${quote}</blockquote>\n`;
-    },
+  const customRenderer = new Renderer();
 
-    br() {
-      return `<br${
-        parseCssInJsToInlineCss(finalStyles.br) !== ""
-          ? ` style="${parseCssInJsToInlineCss(finalStyles.br)}"`
-          : ""
-      } />`;
-    },
+  customRenderer.blockquote = (quote) => {
+    return `<blockquote${
+      parseCssInJsToInlineCss(finalStyles.blockQuote) !== ""
+        ? ` style="${parseCssInJsToInlineCss(finalStyles.blockQuote)}"`
+        : ""
+    }>\n${quote}</blockquote>\n`;
+  }
 
-    code(code) {
-      code = code.replace(/\n$/, "") + "\n";
+  customRenderer.br = () => {
+    return `<br${
+      parseCssInJsToInlineCss(finalStyles.br) !== ""
+        ? ` style="${parseCssInJsToInlineCss(finalStyles.br)}"`
+        : ""
+    } />`;
+  }
 
-      return `<pre${
-        parseCssInJsToInlineCss(finalStyles.codeBlock) !== ""
-          ? ` style="${parseCssInJsToInlineCss(finalStyles.codeBlock)}"`
-          : ""
-      }><code>${code}</code></pre>\n`;
-    },
+  customRenderer.code = (code) => {
+    code = code.replace(/\n$/, "") + "\n";
 
-    codespan(text) {
-      return `<code${
-        parseCssInJsToInlineCss(finalStyles.codeInline) !== ""
-          ? ` style="${parseCssInJsToInlineCss(finalStyles.codeInline)}"`
-          : ""
-      }>${text}</code>`;
-    },
+    return `<pre${
+      parseCssInJsToInlineCss(finalStyles.codeBlock) !== ""
+        ? ` style="${parseCssInJsToInlineCss(finalStyles.codeBlock)}"`
+        : ""
+    }><code>${code}</code></pre>\n`;
+  }
 
-    del(text) {
-      return `<del${
-        parseCssInJsToInlineCss(finalStyles.strikethrough) !== ""
-          ? ` style="${parseCssInJsToInlineCss(finalStyles.strikethrough)}"`
-          : ""
-      }>${text}</del>`;
-    },
+  customRenderer.codespan = (text) => {
+    return `<code${
+      parseCssInJsToInlineCss(finalStyles.codeInline) !== ""
+        ? ` style="${parseCssInJsToInlineCss(finalStyles.codeInline)}"`
+        : ""
+    }>${text}</code>`;
+  }
 
-    em(text) {
-      return `<em${
-        parseCssInJsToInlineCss(finalStyles.italic) !== ""
-          ? ` style="${parseCssInJsToInlineCss(finalStyles.italic)}"`
-          : ""
-      }>${text}</em>`;
-    },
+  customRenderer.del = (text) => {
+    return `<del${
+      parseCssInJsToInlineCss(finalStyles.strikethrough) !== ""
+        ? ` style="${parseCssInJsToInlineCss(finalStyles.strikethrough)}"`
+        : ""
+    }>${text}</del>`;
+  }
 
-    heading(text, level) {
-      return `<h${level}${
-        parseCssInJsToInlineCss(
-          finalStyles[`h${level}` as keyof StylesType]
-        ) !== ""
-          ? ` style="${parseCssInJsToInlineCss(
-              finalStyles[`h${level}` as keyof StylesType]
-            )}"`
-          : ""
-      }>${text}</h${level}>`;
-    },
+  customRenderer.em = (text) => {
+    return `<em${
+      parseCssInJsToInlineCss(finalStyles.italic) !== ""
+        ? ` style="${parseCssInJsToInlineCss(finalStyles.italic)}"`
+        : ""
+    }>${text}</em>`;
+  }
 
-    hr() {
-      return `<hr${
-        parseCssInJsToInlineCss(finalStyles.hr) !== ""
-          ? ` style="${parseCssInJsToInlineCss(finalStyles.hr)}"`
-          : ""
-      } />\n`;
-    },
+  customRenderer.heading = (text, level) => {
+    return `<h${level}${
+      parseCssInJsToInlineCss(
+        finalStyles[`h${level}` as keyof StylesType]
+      ) !== ""
+        ? ` style="${parseCssInJsToInlineCss(
+            finalStyles[`h${level}` as keyof StylesType]
+          )}"`
+        : ""
+    }>${text}</h${level}>`;
+  }
 
-    image(href, _, text) {
-      let out = `<img src="${href}" alt="${text}"${
-        parseCssInJsToInlineCss(finalStyles.image) !== ""
-          ? ` style="${parseCssInJsToInlineCss(finalStyles.image)}"`
-          : ""
-      }>`;
-      return out;
-    },
+  customRenderer.hr = () => {
+    return `<hr${
+      parseCssInJsToInlineCss(finalStyles.hr) !== ""
+        ? ` style="${parseCssInJsToInlineCss(finalStyles.hr)}"`
+        : ""
+    } />\n`;
+  }
 
-    link(href, _, text) {
-      let out = `<a href="${href}" target="_blank"${
+  customRenderer.image = (href, _, text) => {
+    return `<img src="${href}" alt="${text}"${
+      parseCssInJsToInlineCss(finalStyles.image) !== ""
+        ? ` style="${parseCssInJsToInlineCss(finalStyles.image)}"`
+        : ""
+    }>`;
+  }
+
+  customRenderer.link = (href, _, text) => {
+    return `<a href="${href}" target="_blank"${
         parseCssInJsToInlineCss(finalStyles.link) !== ""
           ? ` style="${parseCssInJsToInlineCss(finalStyles.link)}"`
           : ""
       }>${text}</a>`;
-      return out;
-    },
+  }
 
-    list(body, ordered, start) {
-      const type = ordered ? "ol" : "ul";
+  customRenderer.list = (body, ordered, start) => {
+    const type = ordered ? "ol" : "ul";
       const startatt = ordered && start !== 1 ? ' start="' + start + '"' : "";
       const styles = parseCssInJsToInlineCss(
         finalStyles[ordered ? "ol" : "ul"]
@@ -188,34 +187,34 @@ export const initRenderer = ({
         type +
         ">\n"
       );
-    },
+  }
 
-    listitem(text) {
-      return `<li${
-        parseCssInJsToInlineCss(finalStyles.li) !== ""
-          ? ` style="${parseCssInJsToInlineCss(finalStyles.li)}"`
-          : ""
-      }>${text}</li>\n`;
-    },
+  customRenderer.listitem = (text) => {
+    return `<li${
+      parseCssInJsToInlineCss(finalStyles.li) !== ""
+        ? ` style="${parseCssInJsToInlineCss(finalStyles.li)}"`
+        : ""
+    }>${text}</li>\n`;
+  }
 
-    paragraph(text) {
-      return `<p${
-        parseCssInJsToInlineCss(finalStyles.p) !== ""
-          ? ` style="${parseCssInJsToInlineCss(finalStyles.p)}"`
-          : ""
-      }>${text}</p>\n`;
-    },
+  customRenderer.paragraph = (text) => {
+    return `<p${
+      parseCssInJsToInlineCss(finalStyles.p) !== ""
+        ? ` style="${parseCssInJsToInlineCss(finalStyles.p)}"`
+        : ""
+    }>${text}</p>\n`;
+  }
 
-    strong(text) {
-      return `<strong${
-        parseCssInJsToInlineCss(finalStyles.bold) !== ""
-          ? ` style="${parseCssInJsToInlineCss(finalStyles.bold)}"`
-          : ""
-      }>${text}</strong>`;
-    },
+  customRenderer.strong = (text) => {
+    return `<strong${
+      parseCssInJsToInlineCss(finalStyles.bold) !== ""
+        ? ` style="${parseCssInJsToInlineCss(finalStyles.bold)}"`
+        : ""
+    }>${text}</strong>`;
+  }
 
-    table(header, body) {
-      if (body) body = `<tbody>${body}</tbody>`;
+  customRenderer.table = (header, body) => {
+    if (body) body = `<tbody>${body}</tbody>`;
 
       return `<table${
         parseCssInJsToInlineCss(finalStyles.table) !== ""
@@ -226,10 +225,10 @@ export const initRenderer = ({
           ? ` style="${parseCssInJsToInlineCss(finalStyles.thead)}"`
           : ""
       }>\n${header}</thead>\n${body}</table>\n`;
-    },
+  }
 
-    tablecell(content, flags) {
-      const type = flags.header ? "th" : "td";
+  customRenderer.tablecell = (content, flags) => {
+    const type = flags.header ? "th" : "td";
       const tag = flags.align
         ? `<${type} align="${flags.align}"${
             parseCssInJsToInlineCss(finalStyles.td) !== ""
@@ -242,16 +241,15 @@ export const initRenderer = ({
               : ""
           }>`;
       return tag + content + `</${type}>\n`;
-    },
+  }
 
-    tablerow(content) {
-      return `<tr${
-        parseCssInJsToInlineCss(finalStyles.tr) !== ""
-          ? ` style="${parseCssInJsToInlineCss(finalStyles.tr)}"`
-          : ""
-      }>\n${content}</tr>\n`;
-    },
-  };
+  customRenderer.tablerow = (content) => {
+    return `<tr${
+      parseCssInJsToInlineCss(finalStyles.tr) !== ""
+        ? ` style="${parseCssInJsToInlineCss(finalStyles.tr)}"`
+        : ""
+    }>\n${content}</tr>\n`;
+  }
 
   return customRenderer;
 };
