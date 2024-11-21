@@ -1,5 +1,11 @@
 # Change Log
 
+## 5.0.4
+
+### Patch Changes
+
+- 612003c: Fix memory leak caused by how Marked custom renderer was used
+
 ## 5.0.3
 
 ### Patch Changes
