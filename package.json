@@ -24,8 +24,8 @@
     "build": "tsup",
     "lint": "tsc",
     "release": "pnpm run build && changeset publish",
-    "test": "jest --coverage",
-    "test:watch": "jest --watch"
+    "test": "vitest run --coverage",
+    "test:watch": "vitest"
   },
   "author": {
     "name": "Paul Ehikhuemen",
@@ -36,14 +36,14 @@
   "devDependencies": {
     "@changesets/cli": "^2.26.2",
     "@react-email/render": "0.0.7",
-    "@types/jest": "29.5.2",
     "@types/react": "18.2.8",
-    "jest": "29.5.0",
+    "@vitest/coverage-v8": "2.1.8",
+    "happy-dom": "^15.11.7",
     "react": "18.2.0",
-    "ts-jest": "29.1.0",
     "ts-node": "10.9.1",
     "tsup": "6.7.0",
-    "typescript": "5.1.3"
+    "typescript": "5.1.3",
+    "vitest": "2.1.8"
   },
   "peerDependencies": {
     "react": "18.x"
@@ -53,5 +53,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "packageManager": "pnpm@9.14.2+sha512.6e2baf77d06b9362294152c851c4f278ede37ab1eba3a55fda317a4a17b209f4dbb973fb250a77abc463a341fcb1f17f17cfa24091c4eb319cda0d9b84278387"
 }
