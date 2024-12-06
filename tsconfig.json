@@ -19,7 +19,8 @@
       "allowSyntheticDefaultImports": true,
       "esModuleInterop": true,
       "noEmit": true,
+      "types": ["vitest/globals"]
     },
-    "include": ["src"],
+    "include": ["src", "__tests__"],
     "exclude": ["node_modules", "dist", "example", "rollup.config.js", "pre-planning"]
   }
