@@ -1,5 +1,11 @@
 # Change Log
 
+## 5.0.5
+
+### Patch Changes
+
+- 7e344b3: Add support for React 19
+
 ## 5.0.4
 
 ### Patch Changes
