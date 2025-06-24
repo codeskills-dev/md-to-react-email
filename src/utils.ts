@@ -4,7 +4,7 @@ import { Renderer } from "marked";
 import { styles } from "./styles";
 
 function escapeQuotes(value: unknown) {
-  if (typeof value === 'string' && value.includes('"')) {
+  if (typeof value === "string" && value.includes('"')) {
     return value.replace(/"/g, "&#x27;");
   }
   return value;
@@ -78,20 +78,20 @@ export function parseCssInJsToInlineCss(
     .join(";");
 }
 
-export const initRenderer = ({
-  customStyles,
-}: initRendererProps): Renderer => {
+export const initRenderer = ({ customStyles }: initRendererProps) => {
   const finalStyles = { ...styles, ...customStyles };
 
   const customRenderer = new Renderer();
 
-  customRenderer.blockquote = (quote) => {
+  customRenderer.blockquote = ({ tokens }) => {
+    const text = customRenderer.parser.parse(tokens);
+
     return `<blockquote${
       parseCssInJsToInlineCss(finalStyles.blockQuote) !== ""
         ? ` style="${parseCssInJsToInlineCss(finalStyles.blockQuote)}"`
         : ""
-    }>\n${quote}</blockquote>\n`;
-  }
+    }>\n${text}</blockquote>\n`;
+  };
 
   customRenderer.br = () => {
     return `<br${
@@ -99,53 +99,59 @@ export const initRenderer = ({
         ? ` style="${parseCssInJsToInlineCss(finalStyles.br)}"`
         : ""
     } />`;
-  }
+  };
 
-  customRenderer.code = (code) => {
-    code = code.replace(/\n$/, "") + "\n";
+  // TODO: Support all options
+  customRenderer.code = ({ text }) => {
+    text = text.replace(/\n$/, "") + "\n";
 
     return `<pre${
       parseCssInJsToInlineCss(finalStyles.codeBlock) !== ""
         ? ` style="${parseCssInJsToInlineCss(finalStyles.codeBlock)}"`
         : ""
-    }><code>${code}</code></pre>\n`;
-  }
+    }><code>${text}</code></pre>\n`;
+  };
 
-  customRenderer.codespan = (text) => {
+  customRenderer.codespan = ({ text }) => {
     return `<code${
       parseCssInJsToInlineCss(finalStyles.codeInline) !== ""
         ? ` style="${parseCssInJsToInlineCss(finalStyles.codeInline)}"`
         : ""
     }>${text}</code>`;
-  }
+  };
 
-  customRenderer.del = (text) => {
+  customRenderer.del = ({ tokens }) => {
+    const text = customRenderer.parser.parseInline(tokens);
+
     return `<del${
       parseCssInJsToInlineCss(finalStyles.strikethrough) !== ""
         ? ` style="${parseCssInJsToInlineCss(finalStyles.strikethrough)}"`
         : ""
     }>${text}</del>`;
-  }
+  };
 
-  customRenderer.em = (text) => {
+  customRenderer.em = ({ tokens }) => {
+    const text = customRenderer.parser.parseInline(tokens);
+
     return `<em${
       parseCssInJsToInlineCss(finalStyles.italic) !== ""
         ? ` style="${parseCssInJsToInlineCss(finalStyles.italic)}"`
         : ""
     }>${text}</em>`;
-  }
+  };
 
-  customRenderer.heading = (text, level) => {
-    return `<h${level}${
-      parseCssInJsToInlineCss(
-        finalStyles[`h${level}` as keyof StylesType]
-      ) !== ""
+  customRenderer.heading = ({ tokens, depth }) => {
+    const text = customRenderer.parser.parseInline(tokens);
+
+    return `<h${depth}${
+      parseCssInJsToInlineCss(finalStyles[`h${depth}` as keyof StylesType]) !==
+      ""
         ? ` style="${parseCssInJsToInlineCss(
-            finalStyles[`h${level}` as keyof StylesType]
+            finalStyles[`h${depth}` as keyof StylesType]
           )}"`
         : ""
-    }>${text}</h${level}>`;
-  }
+    }>${text}</h${depth}>`;
+  };
 
   customRenderer.hr = () => {
     return `<hr${
@@ -153,103 +159,124 @@ export const initRenderer = ({
         ? ` style="${parseCssInJsToInlineCss(finalStyles.hr)}"`
         : ""
     } />\n`;
-  }
+  };
 
-  customRenderer.image = (href, _, text) => {
+  customRenderer.image = ({ href, text, title }) => {
     return `<img src="${href}" alt="${text}"${
+      title ? ` title="${title}"` : ""
+    }${
       parseCssInJsToInlineCss(finalStyles.image) !== ""
         ? ` style="${parseCssInJsToInlineCss(finalStyles.image)}"`
         : ""
     }>`;
-  }
+  };
 
-  customRenderer.link = (href, _, text) => {
+  customRenderer.link = ({ href, title, tokens }) => {
+    const text = customRenderer.parser.parseInline(tokens);
+
     return `<a href="${href}" target="_blank"${
-        parseCssInJsToInlineCss(finalStyles.link) !== ""
-          ? ` style="${parseCssInJsToInlineCss(finalStyles.link)}"`
-          : ""
-      }>${text}</a>`;
-  }
+      title ? ` title="${title}"` : ""
+    }${
+      parseCssInJsToInlineCss(finalStyles.link) !== ""
+        ? ` style="${parseCssInJsToInlineCss(finalStyles.link)}"`
+        : ""
+    }>${text}</a>`;
+  };
 
-  customRenderer.list = (body, ordered, start) => {
-    const type = ordered ? "ol" : "ul";
-      const startatt = ordered && start !== 1 ? ' start="' + start + '"' : "";
-      const styles = parseCssInJsToInlineCss(
-        finalStyles[ordered ? "ol" : "ul"]
-      );
-      return (
-        "<" +
-        type +
-        startatt +
-        `${styles !== "" ? ` style="${styles}"` : ""}>\n` +
-        body +
-        "</" +
-        type +
-        ">\n"
-      );
-  }
+  customRenderer.listitem = ({ tokens }) => {
+    const text = customRenderer.parser.parseInline(tokens);
 
-  customRenderer.listitem = (text) => {
     return `<li${
       parseCssInJsToInlineCss(finalStyles.li) !== ""
         ? ` style="${parseCssInJsToInlineCss(finalStyles.li)}"`
         : ""
     }>${text}</li>\n`;
-  }
+  };
 
-  customRenderer.paragraph = (text) => {
+  customRenderer.list = ({ items, ordered, start }) => {
+    const type = ordered ? "ol" : "ul";
+    const startAt = ordered && start !== 1 ? ' start="' + start + '"' : "";
+    const styles = parseCssInJsToInlineCss(finalStyles[ordered ? "ol" : "ul"]);
+
+    return (
+      "<" +
+      type +
+      startAt +
+      `${styles !== "" ? ` style="${styles}"` : ""}>\n` +
+      items.map((item) => customRenderer.listitem(item)).join("") +
+      "</" +
+      type +
+      ">\n"
+    );
+  };
+
+  customRenderer.paragraph = ({ tokens }) => {
+    const text = customRenderer.parser.parseInline(tokens);
+
     return `<p${
       parseCssInJsToInlineCss(finalStyles.p) !== ""
         ? ` style="${parseCssInJsToInlineCss(finalStyles.p)}"`
         : ""
     }>${text}</p>\n`;
-  }
+  };
 
-  customRenderer.strong = (text) => {
+  customRenderer.strong = ({ tokens }) => {
+    const text = customRenderer.parser.parseInline(tokens);
+
     return `<strong${
       parseCssInJsToInlineCss(finalStyles.bold) !== ""
         ? ` style="${parseCssInJsToInlineCss(finalStyles.bold)}"`
         : ""
     }>${text}</strong>`;
-  }
+  };
 
-  customRenderer.table = (header, body) => {
-    if (body) body = `<tbody>${body}</tbody>`;
+  customRenderer.table = ({ header, rows }) => {
+    const styleTable = parseCssInJsToInlineCss(finalStyles.table);
+    const styleThead = parseCssInJsToInlineCss(finalStyles.thead);
+    const styleTbody = parseCssInJsToInlineCss(finalStyles.tbody);
 
-      return `<table${
-        parseCssInJsToInlineCss(finalStyles.table) !== ""
-          ? ` style="${parseCssInJsToInlineCss(finalStyles.table)}"`
-          : ""
-      }>\n<thead${
-        parseCssInJsToInlineCss(finalStyles.thead) !== ""
-          ? ` style="${parseCssInJsToInlineCss(finalStyles.thead)}"`
-          : ""
-      }>\n${header}</thead>\n${body}</table>\n`;
-  }
+    const theadRow = customRenderer.tablerow({
+      text: header.map((cell) => customRenderer.tablecell(cell)).join(""),
+    });
 
-  customRenderer.tablecell = (content, flags) => {
-    const type = flags.header ? "th" : "td";
-      const tag = flags.align
-        ? `<${type} align="${flags.align}"${
-            parseCssInJsToInlineCss(finalStyles.td) !== ""
-              ? ` style="${parseCssInJsToInlineCss(finalStyles.td)}"`
-              : ""
-          }>`
-        : `<${type}${
-            parseCssInJsToInlineCss(finalStyles.td) !== ""
-              ? ` style="${parseCssInJsToInlineCss(finalStyles.td)}"`
-              : ""
-          }>`;
-      return tag + content + `</${type}>\n`;
-  }
+    const tbodyRows = rows
+      .map((row) =>
+        customRenderer.tablerow({
+          text: row.map((cell) => customRenderer.tablecell(cell)).join(""),
+        })
+      )
+      .join("");
 
-  customRenderer.tablerow = (content) => {
+    const thead = `<thead${styleThead ? ` style="${styleThead}"` : ""}>\n${theadRow}</thead>`;
+    const tbody = `<tbody${styleTbody ? ` style="${styleTbody}"` : ""}>${tbodyRows}</tbody>`;
+
+    return `<table${styleTable ? ` style="${styleTable}"` : ""}>\n${thead}\n${tbody}</table>\n`;
+  };
+
+  customRenderer.tablecell = ({ tokens, align, header }) => {
+    const text = customRenderer.parser.parseInline(tokens);
+    const type = header ? "th" : "td";
+    const tag = align
+      ? `<${type} align="${align}"${
+          parseCssInJsToInlineCss(finalStyles.td) !== ""
+            ? ` style="${parseCssInJsToInlineCss(finalStyles.td)}"`
+            : ""
+        }>`
+      : `<${type}${
+          parseCssInJsToInlineCss(finalStyles.td) !== ""
+            ? ` style="${parseCssInJsToInlineCss(finalStyles.td)}"`
+            : ""
+        }>`;
+    return tag + text + `</${type}>\n`;
+  };
+
+  customRenderer.tablerow = ({ text }) => {
     return `<tr${
       parseCssInJsToInlineCss(finalStyles.tr) !== ""
         ? ` style="${parseCssInJsToInlineCss(finalStyles.tr)}"`
         : ""
-    }>\n${content}</tr>\n`;
-  }
+    }>\n${text}</tr>\n`;
+  };
 
   return customRenderer;
 };

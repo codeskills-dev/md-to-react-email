@@ -10,6 +10,9 @@ export class MarkdownParser {
   }
 
   parse(markdown: string) {
-    return marked.parse(markdown, { renderer: this.renderer });
+    return marked.parse(markdown, {
+      renderer: this.renderer,
+      async: false,
+    });
   }
 }
