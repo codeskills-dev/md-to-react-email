@@ -229,18 +229,15 @@ export const initRenderer = ({
 
   customRenderer.tablecell = (content, flags) => {
     const type = flags.header ? "th" : "td";
-      const tag = flags.align
-        ? `<${type} align="${flags.align}"${
-            parseCssInJsToInlineCss(finalStyles.td) !== ""
-              ? ` style="${parseCssInJsToInlineCss(finalStyles.td)}"`
-              : ""
-          }>`
-        : `<${type}${
-            parseCssInJsToInlineCss(finalStyles.td) !== ""
-              ? ` style="${parseCssInJsToInlineCss(finalStyles.td)}"`
-              : ""
-          }>`;
-      return tag + content + `</${type}>\n`;
+    const styles = parseCssInJsToInlineCss(
+      finalStyles[flags.header ? "th" : "td"]
+    );
+    const tag = flags.align
+      ? `<${type} align="${flags.align}"${
+          styles !== "" ? ` style="${styles}"` : ""
+        }>`
+      : `<${type}${styles !== "" ? ` style="${styles}"` : ""}>`;
+    return tag + content + `</${type}>\n`;
   }
 
   customRenderer.tablerow = (content) => {
