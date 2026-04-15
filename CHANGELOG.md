@@ -1,5 +1,11 @@
 # Change Log
 
+## 5.0.6
+
+### Patch Changes
+
+- 88d45cf: fix: use correct styles for table header cells (`th`) vs data cells (`td`)
+
 ## 5.0.5
 
 ### Patch Changes
